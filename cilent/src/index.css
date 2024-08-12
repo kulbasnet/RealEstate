@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
 
 .sign{
@@ -16,7 +19,7 @@
 .heading{
     text-align: center;
     margin-bottom: 40px; 
-    margin-top: 90px;
+    margin-top: 70px;
     font-size: 40px;
     font-family: 'Times New Roman', Times, serif;
 
@@ -24,9 +27,9 @@
 
 
 .label{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:  'Abyssinica SIL', serif;
     font-size: 20px;
-    margin-left: 40px;
+    margin-left: 80px;
 
 
 }
@@ -59,15 +62,15 @@
     background-color: navy;
     color: white;
     border-radius: 5px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18px;
 
 
 }
 
 .button:hover{
-    background-color: rgb(194, 165, 5);
-    color: black;
-    transition: 0.5s;
+    background-color: gold;
+    transition: 0.4s;
 }
 
 .image{
@@ -76,10 +79,76 @@
 }
 
 
-::placeholder{
-    color: white;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 13px;
+
+
+
+
+/* LOGIN PAGE */
+
+.log{
+    float: right;
+    width: 740px;
+    height: 695px;
+    border: 1px solid black;
+    
+}
+
+.Head{
+    text-align: center;
+    margin-bottom: 130px; 
+    margin-top: 60px;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    
+
 }
 
 
+
+.label-log{
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 20px;
+    margin-left: 130px;
+}
+
+.input-log{
+    margin: 20px;
+    width: 500px;
+    height: 35px;
+    border: none;
+    background-color: rgb(193, 185, 185);
+    margin-left: 130px;
+    border-radius: 4px;
+
+
+
+}
+
+.button-log{
+    border: none;
+    background-color: navy;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    margin-left: 260px;
+    margin-top: 120px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+
+
+}
+
+
+.link-log{
+    text-decoration: none;
+    margin-left: 300px;
+    margin-top: 30px;
+    font-family: 'Times New Roman', Times, serif ;
+   
+}
+
+.button-log:hover{
+    background-color: gold;
+    transition: 0.4s;
+}

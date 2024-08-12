@@ -41,21 +41,21 @@ function Signup() {
                 <label className='label'>Name</label><br />
                 <input
                     className='input'
-                    placeholder=' Name...'
+                   
                     value={data.name}
                     onChange={handleName}
                 /><br />
                 <label className='label'>Email</label><br />
                 <input
                     className='input'
-                    placeholder=' Email...'
+                    
                     value={data.email}
                     onChange={handleEmail}
                 /><br />
                 <label className='label'>Password</label><br />
                 <input
                     className='input'
-                    placeholder='Password...'
+              
                     value={data.password}
                     onChange={handlePassword}
                 /><br />
