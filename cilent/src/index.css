@@ -4,13 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .sign{
     float: right;
     width: 651px;
-    height: 690px;
+    height: 700px;
     overflow-y: hidden;
     
     
@@ -56,7 +56,7 @@
     text-align: center;
     border: none;
     margin-left: 210px;
-    margin-top: 90px;
+    margin-top: 60px;
     height: 40px;
     width: 200px;
     background-color: navy;
@@ -78,8 +78,20 @@
     border-radius: 4px;
 }
 
+.link-sign{
+    margin-left: 270px;
+    margin-top: 25px;
+    text-decoration: none;
+}
 
+.link-underline{
+    text-decoration: none;
+}
 
+.link-underline:hover{
+color: red;
+transition: 0.4s;
+}
 
 
 
@@ -87,9 +99,8 @@
 
 .log{
     float: right;
-    width: 740px;
+    width: 700px;
     height: 695px;
-    border: 1px solid black;
     
 }
 
@@ -150,5 +161,21 @@
 
 .button-log:hover{
     background-color: gold;
+    transition: 0.4s;
+}
+
+.log-img{
+    border-radius: 6px;
+}
+
+
+
+.link-log-underline{
+    text-decoration: none;
+    
+}
+
+.link-log-underline:hover{
+    color: red;
     transition: 0.4s;
 }

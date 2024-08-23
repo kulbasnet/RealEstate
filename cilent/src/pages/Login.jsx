@@ -1,11 +1,41 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom";
+import Axios from "axios";
+import {useNavigate ,Link} from "react-router-dom";
+import login from "./login1.jpg";
 
 function Login() {
     const [data,setData ]= useState({email:"",
                                     password:""
                                         })
+    const navigate = useNavigate();
+    
+                                        
+   const userLogin =  async (e)=>{
+    e.preventDefault();
+    const {email,password} = data;
 
+    try{
+      const {data} =await Axios.post('/Login', {
+        email,password
+      });
+      if(!data){
+        console.log("Sorry no such user found");
+      }else{
+        setData({});
+        navigate('/Buy');
+
+      }
+
+    }catch{
+      console.error("Sorry Error occured");
+    }
+   }
+
+
+
+
+
+                                        
 
   function handleEmail(e){
     setData({...data, email: e.target.value})
@@ -18,11 +48,13 @@ function Login() {
 
   return (
     <div >
+   <img src={login} alt='pic' className='log-img' />
+
 
       <div className='log'>
       <h1 className='Head'>Login</h1>
 
-        <form >
+        <form onSubmit={userLogin} >
         <label className='label-log'>Email</label><br/>
         <input type='email' className='input-log'  value={data.email}  onChange={handleEmail}  /><br/>
 
@@ -31,7 +63,7 @@ function Login() {
 
         <button type='submit' className='button-log'> Login</button>
 
-        <p className='link-log'> <Link to={'/Signup'}>Create an Account</Link></p>
+        <p className='link-log'> <Link to={'/Signup'}className='link-log-underline'>Create an Account</Link></p>
 
 
 
