@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Axios from "axios";
 import {useNavigate ,Link} from "react-router-dom";
 import login from "./login1.jpg";
+import axios from 'axios';
 
 function Login() {
     const [data,setData ]= useState({email:"",
@@ -15,7 +16,7 @@ function Login() {
     const {email,password} = data;
 
     try{
-      const {data} =await Axios.post('/Login', {
+      const {data} =await axios.post('/Login', {
         email,password
       });
       if(!data){
