@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import login from "./login1.jpg";
+import axios from 'axios';
 
 function Login() {   
     const [data, setData] = useState({
@@ -10,9 +11,21 @@ function Login() {
     });
     const navigate = useNavigate();
 
+<<<<<<< HEAD
     const userLogin = async (e) => {
         e.preventDefault();
         const { email, password } = data;
+=======
+    try{
+      const {data} =await axios.post('/Login', {
+        email,password
+      });
+      if(!data){
+        console.log("Sorry no such user found");
+      }else{
+        setData({});
+        navigate('/Buy');
+>>>>>>> 196eb96f7f699c9eea1085eeedb7fd169c3f68ad
 
         try {
             const { data } = await Axios.post('/login', {

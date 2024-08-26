@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import photo from './photo1.jpg';
 import { Link , useNavigate} from 'react-router-dom';
-import Axios from "axios";
+import axios from "axios";
 
 function Sign() {
     const [data, setData] = useState({
@@ -16,7 +16,11 @@ function Sign() {
         e.preventDefault();
         const {name, email,password} = data;
         try{
+<<<<<<< HEAD:cilent/src/pages/Sign.jsx
             const {data} = await Axios.post("/sign",{
+=======
+            const {data} = await axios.post("/Signup",{
+>>>>>>> 196eb96f7f699c9eea1085eeedb7fd169c3f68ad:cilent/src/pages/Signup.jsx
                 name,email,password
             })
 
