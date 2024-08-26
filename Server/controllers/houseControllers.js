@@ -2,6 +2,7 @@ const houseModel = require('../models/House');
 const userModel = require('../models/User');
 const messageModel = require('../models/message')
 
+
 const createHouse = async (req,res)=>{
     try{
         const {name,location, price, propertyNumber, propertyType,status}= req.body;
@@ -46,7 +47,7 @@ const searchHouse = async(req,res)=>{
         const nameArray = name.split(",");
         const house = await houseModel.find({ name: {$in : nameArray}});
         if (house.length === 0 ){
-            return res.status(400).json({sucess: true , message : "Sorry no such Houses"});
+            return res.status(400).json({sucess: false , message : "Sorry no such Houses"});
 
         }
 
