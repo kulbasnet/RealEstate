@@ -44,15 +44,15 @@ const searchHouse = async(req,res)=>{
     try{
         const {name} = req.query;
         const nameArray = name.split(",");
-        const house = await houseModel.find({ name: {$in : nameArray}});
-        if (house.length === 0 ){
-            return res.status(400).json({sucess: true , message : "Sorry no such Houses"});
+        const houses = await houseModel.find({ name: {$in : nameArray}});
+        if (houses.length === 0 ){
+            return res.status(404).json({success: true , message : "Sorry no such Houses"});
 
         }
 
-        return res.status(200).json({sucess:true, house });
+        return res.status(200).json({sucess:true, houses });
 
-        
+
 
     }catch(err){
         res.status(400).json({sucess:false , Message: err.message});

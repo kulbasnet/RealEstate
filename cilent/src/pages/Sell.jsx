@@ -4,9 +4,10 @@ function Sell() {
   return (
     <div>
         <h1>Sell</h1>
+        <h1>Hahah</h1>
       
     </div>
   )
 }
 
-export default Sell
+export default Sell;

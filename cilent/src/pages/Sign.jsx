@@ -3,7 +3,7 @@ import photo from './photo1.jpg';
 import { Link , useNavigate} from 'react-router-dom';
 import Axios from "axios";
 
-function Signup() {
+function Sign() {
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -16,7 +16,7 @@ function Signup() {
         e.preventDefault();
         const {name, email,password} = data;
         try{
-            const {data} = await Axios.post("/Signup",{
+            const {data} = await Axios.post("/sign",{
                 name,email,password
             })
 
@@ -25,6 +25,7 @@ function Signup() {
             }else{
                 setData({});
                 navigate('/Login');
+                
             }
 
         }catch(err){
@@ -81,10 +82,10 @@ function Signup() {
                 <button className='button' type='submit'>Submit</button>
         
             </form>
-      <p className='link-sign'> Back to <Link to={"/Login"} className='link-underline'>Login</Link></p>  
+      <p className='link-sign'> Back to <Link to={"/login"} className='link-underline'>Login</Link></p>  
         </div>
         </div>
     );
 }
 
-export default Signup;
+export default Sign;
