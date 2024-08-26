@@ -1,9 +1,11 @@
 import React from 'react'
+import Card from '../Components/Card'
 
 function Buy() {
   return (
     <div>
-      <h1>Buy</h1>
+  
+      <Card/>
     </div>
   )
 }

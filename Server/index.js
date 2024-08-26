@@ -16,11 +16,7 @@ const port = 6001;
 
 
 //Middleware 
-app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-  }));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/house', houseRoutes);

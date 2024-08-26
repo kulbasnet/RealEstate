@@ -23,7 +23,7 @@ function Login() {
                 console.log("Sorry no such user found");
             } else {
                 setData({});
-                navigate('/Buy');
+                navigate('/');
             }
         } catch (error) {
             console.error("Sorry Error occured", error.message);

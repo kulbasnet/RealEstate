@@ -137,7 +137,7 @@ transition: 0.4s;
 
 .button-log{
     border: none;
-    background-color: navy;
+    background-color: #081740;
     width: 200px;
     height: 40px;
     border-radius: 5px;
@@ -179,3 +179,84 @@ transition: 0.4s;
     color: red;
     transition: 0.4s;
 }
+
+/* NAV BAR */
+
+.nav{
+    background-color: #081740;
+}
+
+.nav-link{
+    float: right;
+    display: flex;
+    gap: 0px;
+    margin: 30px;
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 20px;
+    margin-right: 50px;
+    
+
+
+}
+.li-link{
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    margin-right: 109px;
+}
+
+.li-link:hover{
+    text-decoration: underline;
+
+}
+
+.icon{
+    margin-right: 0px;
+    color: white;
+}
+
+
+/* Card segment */
+.card{
+    width: 280px;
+    height: 290px;
+    margin: 20px;
+    margin-left: 120px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Adjust shadow as needed */   
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+}
+
+.img-card{
+    border: 1px black solid;
+    height: 180px;
+    width: 280px;
+    border-radius: 4px;
+
+}
+
+.card-title{
+    margin-left:12px;
+    font-family: 'Abyssinica SIL', serif;
+    
+}
+
+.star-card{
+    
+   margin-left: 240px;
+   margin-top: 10px;
+  color: grey;
+  
+   
+}
+
+.card-details{
+    margin-bottom: 20px;
+    margin-left:12px;
+    font-family:'Abyssinica SIL', serif ;
+
+
+}
+
+

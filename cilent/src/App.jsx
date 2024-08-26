@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+import Agent from './pages/Agent';
 import Sign from './pages/Sign';
 import Buy from './pages/Buy';
 import Sell from './pages/Sell';
@@ -19,6 +20,8 @@ function App() {
       <Route element={<WithNavBar />}>
         <Route path="/" element={<Buy />} />
         <Route path="/sell" element={<Sell />} />
+        <Route path="/agent" element={<Agent />} />
+
       </Route>
 
       {/* Routes without NavBar */}
