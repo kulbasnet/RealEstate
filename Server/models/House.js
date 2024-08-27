@@ -15,6 +15,12 @@ const houseSchema = new Schema({
         required:[true, 'price is required']
     },
 
+    listedBy:{
+        type:String,
+        required:[true, "Agent Name is Required"]
+
+    },
+
     propertyNumber:{
         type:Number,
         required:[true,'Property number is necessary']
@@ -22,6 +28,12 @@ const houseSchema = new Schema({
 
     propertyType:{
         type:String,
+
+    },
+
+    img:{
+        data:Buffer,
+        contentType:String
 
     },
 

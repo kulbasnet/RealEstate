@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import login from "./login1.jpg";
-import axios from 'axios';
 
 function Login() {   
     const [data, setData] = useState({
@@ -11,35 +10,20 @@ function Login() {
     });
     const navigate = useNavigate();
 
-<<<<<<< HEAD
     const userLogin = async (e) => {
         e.preventDefault();
         const { email, password } = data;
-=======
-    try{
-      const {data} =await axios.post('/Login', {
-        email,password
-      });
-      if(!data){
-        console.log("Sorry no such user found");
-      }else{
-        setData({});
-        navigate('/Buy');
->>>>>>> 196eb96f7f699c9eea1085eeedb7fd169c3f68ad
 
         try {
-            const { data } = await Axios.post('/login', {
-                email,
-                password
-            });
-            if (!data) {
-                console.log("Sorry no such user found");
-            } else {
+            const response = await Axios.post('/Login', { email, password });
+            if (response.data) {
                 setData({});
-                navigate('/');
+                navigate('/Buy');
+            } else {
+                console.log("Sorry, no such user found");
             }
         } catch (error) {
-            console.error("Sorry Error occured", error.message);
+            console.error("Sorry, an error occurred:", error.message);
         }
     };
 
@@ -53,15 +37,27 @@ function Login() {
 
     return (
         <div>
-            <img src={login} alt='pic' className='log-img' />
+            <img src={login} alt='Login' className='log-img' />
             <div className='log'>
                 <h1 className='Head'>Login</h1>
                 <form onSubmit={userLogin} >
                     <label className='label-log'>Email</label><br />
-                    <input type='email' className='input-log' value={data.email} onChange={handleEmail} /><br />
+                    <input 
+                        type='email' 
+                        className='input-log' 
+                        value={data.email} 
+                        onChange={handleEmail} 
+                        required 
+                    /><br />
 
                     <label className='label-log'>Password</label><br />
-                    <input type='password' className='input-log' value={data.password} onChange={handlePassword} /><br />
+                    <input 
+                        type='password' 
+                        className='input-log' 
+                        value={data.password} 
+                        onChange={handlePassword} 
+                        required 
+                    /><br />
 
                     <button type='submit' className='button-log'> Login</button>
 

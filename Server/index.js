@@ -15,22 +15,13 @@ const port = 8000;
 
 
 
-<<<<<<< HEAD
+
 //Middleware 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/house', houseRoutes);
 app.use('/', userRoutes);
-=======
-//Middleware
-// app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use('/house', houseRoutes);
-app.use('/user', userRoutes);
->>>>>>> 196eb96f7f699c9eea1085eeedb7fd169c3f68ad
-
 
 
 //dATBASE CONNECTION

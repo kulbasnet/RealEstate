@@ -5,9 +5,9 @@ const messageModel = require('../models/message')
 
 const createHouse = async (req,res)=>{
     try{
-        const {name,location, price, propertyNumber, propertyType,status}= req.body;
+        const {name,location, price, propertyNumber, propertyType,status,listedBy}= req.body;
 
-        if(!name || !location || !price || !propertyNumber || !propertyType || !status) {
+        if(!name || !location || !price || !propertyNumber || !propertyType || !status || !listedBy) {
             res.status(400).json({
                 success:false, 
                 message: "You have to list all the required elements"})
@@ -28,7 +28,7 @@ const createHouse = async (req,res)=>{
         }
 
         //Create NewHouse
-        const newHouse = await houseModel.create({name,location, price, propertyNumber, propertyType,status});
+        const newHouse = await houseModel.create({name,location, price, propertyNumber, propertyType,status,listedBy});
         res.status(200).json({
             success:true, 
             message:"New house Added",
@@ -45,15 +45,10 @@ const searchHouse = async(req,res)=>{
     try{
         const {name} = req.query;
         const nameArray = name.split(",");
-<<<<<<< HEAD
         const houses = await houseModel.find({ name: {$in : nameArray}});
         if (houses.length === 0 ){
             return res.status(404).json({success: true , message : "Sorry no such Houses"});
-=======
-        const house = await houseModel.find({ name: {$in : nameArray}});
-        if (house.length === 0 ){
-            return res.status(400).json({sucess: false , message : "Sorry no such Houses"});
->>>>>>> 196eb96f7f699c9eea1085eeedb7fd169c3f68ad
+
 
         }
 
