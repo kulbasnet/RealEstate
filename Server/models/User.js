@@ -22,13 +22,22 @@ const userSchema = new Schema({
 
     },
 
-    favouriteHouse:[{
-        type:mongoose.Schema.Types.ObjectId, ref:"House"}],
+    favouriteHouse: {
+        type: [mongoose.Schema.Types.ObjectId], 
+        ref: 'House',
+        default: [], 
+    },
+    isAgent:{
+        type:Boolean,
+        default:false
 
-    createdHouse:[{
-        type: mongoose.Schema.Types.ObjectId, ref:'House'}]
+    },
+    message:[{
+        type:String
+        
+    }]
 })
 
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

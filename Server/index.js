@@ -10,12 +10,8 @@ const User = require('../Server/models/User');
 const authenticate = require('../Server/middleware/authenticate');
 const Message = require('../Server/models/message');
 
-
 const port = 8000;
-
-
-
-
+    
 //Middleware 
 app.use(cors());
 app.use(express.json());

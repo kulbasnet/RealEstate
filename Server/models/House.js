@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const houseSchema = new Schema({
-    name:{
-       type: String,
-       required:[true, "House Name is required"]
-    },
     location:{
         type:String,
         required : [true, "House location is required"]
@@ -14,6 +10,11 @@ const houseSchema = new Schema({
         type:Number,
         required:[true, 'price is required']
     },
+
+    size:{
+        type: Number,
+        required:[true, "House size is required"]
+     },
 
     listedBy:{
         type:String,

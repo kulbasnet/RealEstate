@@ -6,8 +6,8 @@ const AgentSchema = new Schema({
         type: String,
         required: [true, "Name is necessary"]
     },
-    phoneNumber: { // Changed to camelCase
-        type: String, // Changed to String for phone numbers
+    phoneNumber: { 
+        type: String, 
         required: [true, "Phone number is required"]
     },
     email: {
@@ -15,15 +15,14 @@ const AgentSchema = new Schema({
         required: [true, "Email is necessary"],
         unique: true
     },
-
-    image:{
-        data:Buffer,
-        required:[true, "Image is also required" ],
-        contentType:String
-
+    description:{
+        type:String,
+        required:[true,"About yourself is required"]
 
     },
 
+    createdHouse:[{
+        type: mongoose.Schema.Types.ObjectId, ref:'House'}],
 
     message: [{
         type: mongoose.Schema.Types.ObjectId,
