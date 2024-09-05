@@ -11,7 +11,6 @@ function Sign() {
         password: '',
         isAgent: false,
         phoneNumber: "",
-
     });
 
     const navigate = useNavigate();
@@ -24,23 +23,38 @@ function Sign() {
             toast.error("Phone number is required for agents.");
             return;
         }
-        try {
-            const { data } = await Axios.post("http://localhost:8000/sign", {
+        // If not an agent, clear the phoneNumber field to avoid sending empty strings
+        let updatedPhoneNumber = phoneNumber;
+        if (!isAgent) {
+            updatedPhoneNumber = null;
+        }
 
-                name, email, password, isAgent, phoneNumber
+        try {
+            console.log({ name, email, password, isAgent, phoneNumber: updatedPhoneNumber });
+
+            const response = await Axios.post("http://localhost:8000/sign", {
+                name, email, password, isAgent, phoneNumber: updatedPhoneNumber
             })
 
-            if (data.error) {
-                toast.error(data.error);
+            if (response.data.error) {
+                toast.error(response.data.message || "Something went wrong.");
             } else {
                 setData({});
                 toast.success("SignUp Succesfull")
                 navigate('/login');
-
             }
 
         } catch (err) {
-            console.error("Sorry somthig is wrong", err.message);
+            // Log the full error if response is undefined
+            console.error("Server response:", err.response?.data);
+            toast.error(err.response?.data?.message || "An error occurred.");
+
+            // If there's a response, log the message from the server
+            if (err.response && err.response.data && err.response.data.error) {
+                toast.error(err.response.data.error);
+            } else {
+                toast.error("An unexpected error occurred");
+            }
         }
     }
 
