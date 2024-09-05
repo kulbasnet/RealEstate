@@ -26,8 +26,6 @@ function App() {
         <Route path="/sell" element={<Sell />} />
         <Route path="/agent" element={<Agent />} />
         <Route path='/dashBoard' element={<Dashboard/>}/>
-       
-
       </Route>
 
       {/* Routes without NavBar */}
@@ -39,8 +37,6 @@ function App() {
     </Routes>
   
   </>
-
-
   );
 }
 
