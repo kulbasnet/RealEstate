@@ -1,40 +1,43 @@
-const mongoose= require('mongoose');
-const {Schema} = mongoose;
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    name:{
-        type:String,
-        required : [true, "Personal Name is required"],
+    name: {
+        type: String,
+        required: [true, "Personal Name is required"],
         unique: true
-
     },
 
-    email:{
-        type:String,
-        required : [true, "email is necessary"],
+    email: {
+        type: String,
+        required: [true, "email is necessary"],
         unique: true
-
     },
 
-    password:{
-        type:String,
-        required:true
-
+    password: {
+        type: String,
+        required: true
     },
 
     favouriteHouse: {
-        type: [mongoose.Schema.Types.ObjectId], 
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'House',
-        default: [], 
+        default: [],
     },
-    isAgent:{
-        type:Boolean,
-        default:false
+    isAgent: {
+        type: Boolean,
+        default: false
 
     },
-    message:[{
-        type:String
-        
+    phoneNumber: {
+        type: String,
+        required: function () {
+            return this.isAgent;
+        }
+    },
+    message: [{
+        type: String
+
     }]
 })
 

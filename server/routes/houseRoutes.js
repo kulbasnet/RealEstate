@@ -1,17 +1,17 @@
-const express  = require('express');
+const express = require('express');
 const router = express.Router();
-const {getHouse,searchHouse, createHouse , addToFavourite,getFavouritehouse,getinTouch} = require('../controllers/houseControllers');
+const { getHouse, searchHouse, createHouse, addToFavourite, getFavouritehouse, getinTouch } = require('../controllers/houseControllers');
 const authenticate = require('../middleware/authenticate');
-const multer  = require('multer');
-const upload = multer({ storage:multer.memoryStorage() });
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 
 
 router.get('/searchhouse', searchHouse);
-router.post('/createHouse',authenticate,upload.single('img'), createHouse);
-router.post('/addToFavourite',authenticate,addToFavourite);
-router.get('/favouriteHouse',authenticate, getFavouritehouse);
-router.post('/touch',authenticate, getinTouch);
-router.get('/getHouse',authenticate,getHouse);
+router.post('/createHouse', authenticate, upload.single('img'), createHouse);
+router.post('/addToFavourite', authenticate, addToFavourite);
+router.get('/favouriteHouse', authenticate, getFavouritehouse);
+router.post('/touch', authenticate, getinTouch);
+router.get('/getHouse', authenticate, getHouse);
 
 
 // router.delete =  ("/:name",async(req,res)=>{
@@ -34,4 +34,4 @@ router.get('/getHouse',authenticate,getHouse);
 //     }
 // });
 
-module.exports=  router;
+module.exports = router;

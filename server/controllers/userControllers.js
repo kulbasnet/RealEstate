@@ -7,17 +7,20 @@ const userSignUp = async (req, res) => {
     try {
         const { name, email, password, isAgent, phoneNumber } = req.body;
 
-        const existingUser = await userModel.findOne({ $or: [{ email }, { name }] });
-        if (existingUser) {
-            return res.status(400).json({ success: false, message: 'Email or username already in use' });
-        }
-
         if (!name) {
             return res.json({ error: 'Name is required' });
         }
-        // Check if password is good
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'Email is required' });
+        }
         if (!password || password.length < 6) {
             return res.json({ error: 'Password is required and should be at least 6 characters' });
+        }
+
+        // Check for existing user
+        const existingUser = await userModel.findOne({ $or: [{ email }, { name }] });
+        if (existingUser) {
+            return res.status(400).json({ success: false, message: 'Email or username already in use' });
         }
 
         // Hash the password
