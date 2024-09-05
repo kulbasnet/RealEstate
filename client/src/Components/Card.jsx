@@ -14,7 +14,7 @@ function Card() {
             const token = localStorage.getItem('authToken');
             // e.preventDefault();
             try {
-                const response = await axios.get("http://localhost:8000/house/getHouse", {
+                const response = await axios.get("http://localhost:8000/house/gethouse", {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

@@ -1,9 +1,11 @@
 import React from 'react'
+import Add from '../Components/Add'
 
 function Dashboard() {
   return (
     <div>
-      <h1>Welcome</h1>
+      <button>Welcome</button>
+      <Add/>
     </div>
   )
 }

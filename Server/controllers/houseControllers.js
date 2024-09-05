@@ -59,17 +59,17 @@ const createHouse = async (req,res)=>{
 
 }
 
-    const getHouse = async(req,res)=>{
-        try{
-            const houses = await houseModel.find();
-            res.status(200).json({message:"Houses with their info", houses})
-            
+const getHouse = async(req,res)=>{
+    try{
+        const houses = await houseModel.find();
+        res.status(200).json({message:"Houses with their info", houses})
+        
 
-        }catch(error){
-            res.status(404).json({error:"Sorry",error});
+    }catch(error){
+        res.status(404).json({error:"Sorry",error});
 
-        }
     }
+}
 
 const searchHouse = async(req,res)=>{
     try{

@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from '../Components/Card'
-import GetinTouch from '../Components/GetinTouch'
+// import GetinTouch from '../Components/GetinTouch'
 
 function Buy() {
   return (

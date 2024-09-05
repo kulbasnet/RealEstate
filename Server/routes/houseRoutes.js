@@ -7,11 +7,11 @@ const upload = multer({ storage:multer.memoryStorage() });
 
 
 router.get('/searchhouse', searchHouse);
-router.post('/createHouse',authenticate,upload.single('img'), createHouse);
+router.post('/createhouse',authenticate,upload.single('img'), createHouse);
 router.post('/addToFavourite',authenticate,addToFavourite);
 router.get('/favouriteHouse',authenticate, getFavouritehouse);
 router.post('/touch',authenticate, getinTouch);
-router.get('/getHouse',authenticate,getHouse);
+router.get('/gethouse',authenticate,getHouse);
 
 
 // router.delete =  ("/:name",async(req,res)=>{
