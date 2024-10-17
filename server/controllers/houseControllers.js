@@ -15,7 +15,7 @@ const createHouse = async (req,res)=>{
 
 
         if (!img) {
-            return res.status(400).json({
+           return res.status(400).json({
                 success: false,
                 error: "No image file uploaded"
             });
@@ -23,7 +23,7 @@ const createHouse = async (req,res)=>{
 
         if(!size || !location || !price || !propertyNumber || !propertyType  || !listedBy) {
            return res.status(400).json({
-                success:false, 
+               success:false, 
                 error: "You have to list all the required elements"})
 
         }
@@ -52,12 +52,7 @@ const createHouse = async (req,res)=>{
          user.createdHouse.push(newHouse._id); 
          await user.save();
      }
-        res.status(200).json({
-            success:true, 
-            message:"New house Added",
-            newHouse});
 
-      
 
     }catch(err){
         res.status(400).json({success:false, error: err.message})

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Add from '../Components/Add'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import AgentHouse from '../Components/AgentHouse';
