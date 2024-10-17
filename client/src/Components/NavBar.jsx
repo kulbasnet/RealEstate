@@ -22,7 +22,7 @@ function NavBar() {
         <SearchBar/>
 
 
-        {authToken ? ( <li><button>Logout</button></li>  ) 
+        {authToken ? ( <li><button><FontAwesomeIcon icon={faUser}/></button></li>  ) 
         : <Link to={'/login'}> <button>Login</button></Link>}
      
 
