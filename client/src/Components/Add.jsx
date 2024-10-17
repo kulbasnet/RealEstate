@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import {toast} from 'react-hot-toast';
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-
-function Add() {
+function Add({onclose}) {
     const [houseData,setHouseData] = useState({location:"",
                                                 size:"",
                                                 price:"",
@@ -34,10 +33,11 @@ function Add() {
 
     if (!authToken) {
       console.log("No authentication found");
+      toast.error("No Authentication");
       return;
   }
         try{
-          const response = await axios.post('http://localhost:8000/createhouse',formData,{
+          const response = await axios.post('http://localhost:8000/house/createhouse',formData,{
             headers:{
               'Content-Type':'multipart/form-data',
               "Authorization":`Bearer ${authToken}`
@@ -102,10 +102,11 @@ function Add() {
 
 
   return (
-    <div>
-      {/* <FontAwesomeIcon icon={faPlus} className='houseAdd'/> */}
+    <div className='popup-container'>
+      <div className='popup'>
       <form onSubmit={createHouse}>
-        <h1>Add New House</h1>
+      <button className='close' onClick={onclose} ><FontAwesomeIcon icon={faTimes}/></button>  
+        <h1 className='pop-head'>Add New House</h1>
         <label>Location</label>
         <input type='text' onChange={handleLocation} value={houseData.location} className='add-input' /><br/>
         <label>Size</label>
@@ -121,11 +122,9 @@ function Add() {
         <input type='file' onChange={handleImage} /><br/>
 
         <button type='submit'>Add</button>
+        </form>
 
-        
-
-
-      </form>
+      </div>
     </div>
   )
 }

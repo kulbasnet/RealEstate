@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GetinTouch from './GetinTouch';
 import Favourite from './Favourite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function Card() {
     const [houses, setHouses] = useState([]);
@@ -19,6 +21,7 @@ function Card() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                console.log(response.data.houses);
                 setHouses(response.data.houses);
             } catch (error) {
                 console.error("Sorry, something went wrong:", error.message);
@@ -44,13 +47,20 @@ function Card() {
         <div className='cards-container'>
             {selectedHouse ? (
                 <div className='house-details'>
-                    <button onClick={handleBackClick}>Back to list</button>
-                    <h2>{selectedHouse.location}</h2>
-                    <img src={selectedHouse.img} alt='House' className='img-card' />
-                    <p>Price: Rs. {selectedHouse.price}</p>
-                    <p>Size: {selectedHouse.size}</p>
-                    <p>Description: {selectedHouse.description}</p>
-                    <p>Listed By: {selectedHouse.listedBy}</p>
+                                        <img src={selectedHouse.img} alt='House' className='inside-img-card' />
+                                        <h2>{selectedHouse.location}</h2>
+                                        <div className='button-back'> 
+                                        <button onClick={handleBackClick} className='back'><FontAwesomeIcon icon={faLongArrowLeft}/></button>
+                                        <Favourite houseId={selectedHouse._id} />
+
+
+                                        </div>
+                    <p  className='select-name'> {selectedHouse.location}</p>
+                    <p className='select-price'>PRICE<br/> Rs. {selectedHouse.price}</p>
+                    <p className='select-size'>SIZE<br/> {selectedHouse.size} Anna</p>
+                    <p className='select-number' >PROPERTY ID<br/> {selectedHouse.propertyNumber}</p>
+                    <p  className='select-type'>PROPERTY TYPE<br/> {selectedHouse.propertyType}</p>
+
                     <GetinTouch />
 
                   
@@ -63,11 +73,15 @@ function Card() {
                             className='card' 
                             onClick={() => handleCardClick(house)} // Handle card click
                         >
-                            <img src={house.img} alt='House' className='img-card' />
-                            <Favourite houseId={house._id}/>
+                            {/* <img src={house.img} alt='House' className='img-card' /> */}
+                            <img src={house.img} alt='house' className='img-card'/>
+                            
+                            <Favourite houseId={house._id} key={house._id}/>
                             <h3 className='card-title'>{house.location}</h3>
                             <p className='card-details'>Price: {house.price}</p>
                             <p className='card-details'>Size: {house.size}</p>
+
+
                         </div>
                     ))
                 ) : (

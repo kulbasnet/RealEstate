@@ -35,6 +35,12 @@ const userSchema = new Schema({
             return this.isAgent;
         }
     },
+    createdHouse:
+        {
+        type:[ mongoose.Schema.Types.ObjectId],
+        ref:'House',
+        default:[],
+    },
     message: [{
         type: String
 

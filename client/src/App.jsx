@@ -9,8 +9,11 @@ import Login from './pages/Login';
 import {Toaster} from "react-hot-toast";
 import WithNavBar from './Components/WithNavBar';
 import WithoutNav from './Components/WithoutNav';
-import './index.css';
 import Dashboard from './Agent/Dashboard';
+import Agentnav from './Agent/Agentnav';
+import Message from './Agent/Message';
+import './index.css';
+import '../src/Agent/Agent.css';
 
 axios.defaults.baseURL = 'http://localhost:6001';
 axios.defaults.withCredentials = false;
@@ -25,7 +28,6 @@ function App() {
         <Route path="/" element={<Buy />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/agent" element={<Agent />} />
-        <Route path='/dashBoard' element={<Dashboard/>}/>
       </Route>
 
       {/* Routes without NavBar */}
@@ -34,6 +36,15 @@ function App() {
         <Route path="/login" element={<Login />} />
 
       </Route>
+
+      {/* Route for Agent */}
+      <Route element={<Agentnav/>}>
+      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/message' element={<Message/>}/>
+      </Route>
+
+
+
     </Routes>
   
   </>

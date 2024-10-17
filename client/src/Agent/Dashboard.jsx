@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Add from '../Components/Add'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import AgentHouse from '../Components/AgentHouse';
 
 function Dashboard() {
+  const [seen, setSeen] = useState(false);
+
+ function handleToggle(){
+  setSeen(!seen);
+ }
+
+ function closeToggle(){
+  setSeen(false);
+ }
+
+
+
   return (
     <div>
-      <button>Welcome</button>
-      <Add/>
+      <button className='addbutton-agent' onClick={handleToggle}> Add New <FontAwesomeIcon icon={faPlus} /> </button>
+      {seen ? <Add /> : ''}
+      {seen && <Add onclose={closeToggle}/>}
+      <AgentHouse/>
+      
     </div>
   )
 }

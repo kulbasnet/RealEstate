@@ -7,7 +7,10 @@ import logo from "./logo.png";
 import SearchBar from './SearchBar';
 
 
-function NavBar() {    
+function NavBar() { 
+  const authToken = localStorage.getItem("authToken")   
+  
+
   return (
     <div>
        <nav className='nav'>
@@ -17,8 +20,11 @@ function NavBar() {
         <li><Link to={'/sell'} className='li-link' >SELL</Link></li>
         <li><Link to={'/agent'} className='li-link'>AGENT</Link></li>
         <SearchBar/>
-        {/* <li><button className='search-button'><FontAwesomeIcon icon={faSearch}/></button></li> */}
-      <li><button className='icon-button'><FontAwesomeIcon icon={faUser}/></button></li>  
+
+
+        {authToken ? ( <li><button>Logout</button></li>  ) 
+        : <Link to={'/login'}> <button>Login</button></Link>}
+     
 
 
         </ul>

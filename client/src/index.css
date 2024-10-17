@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -67,19 +67,26 @@
 
 .input{
     width: 500px;
+    border: 1.5px solid #363636;
+    box-shadow: 1.5px 3px 0 #000;
     border-radius: 4px;
     height: 35px;
-    background-color: rgb(215, 211, 211);
+    background-color: white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 12px;
     margin-top: 30px;
     margin-left: 80px;
-    border: none;
     margin-bottom: 30px;
     text-align: center;
+    outline: none;
     font-size: 14px;
+    transition: 0.25s ease;
 
 
+}
+
+.input:focus{
+    box-shadow: 5.5px 7px 0 black ;
 }
 
 .button{
@@ -129,7 +136,7 @@ transition: 0.4s;
 
 .log{
     float: right;
-    width: 700px;
+    width: 670px;
     height: 695px;
     
 }
@@ -163,12 +170,18 @@ transition: 0.4s;
     width: 500px;
     height: 35px;
     border: none;
-    background-color: rgb(193, 185, 185);
+    background-color:white;
     margin-left: 130px;
     border-radius: 4px;
-
-
-
+    border: 1.5px solid #000;
+    box-shadow: 2.5px 3px 0 #000;
+    outline: none;
+    transition: ease 0.25s;
+}
+      
+.input-log:focus{
+    box-shadow: 5.5px 7px 0 black;
+      
 }
 
 .button-log{
@@ -182,17 +195,13 @@ transition: 0.4s;
     margin-top: 120px;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
-
-
 }
-
 
 .link-log{
     text-decoration: none;
     margin-left: 300px;
     margin-top: 30px;
     font-family: 'Times New Roman', Times, serif ;
-   
 }
 
 .button-log:hover{
@@ -222,6 +231,11 @@ transition: 0.4s;
 /* NAV BAR */
 .nav{
     background-color: #081740;
+    position: fixed; /* Fixes the navbar to the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensure it spans the width of the screen */
+    z-index: 100; /* Keeps the navbar above other content */
 }
 .nav-logo{
     margin-left: 22px;
@@ -296,55 +310,150 @@ transition: 0.4s;
 
 
 /* Card segment */
-.card{
+
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: normal;
+    /* padding: 20px; */
+    
+}
+
+.house-details{
+    width: 100%;
+    position: relative;
+    
+}
+.house-details h2{
+    margin-left: 50px;
+    font-size: 45px;
+    font-family:'Times New Roman', Times, serif ;
+    color: white;
+    z-index: 10;
+    position: absolute;
+    top: 620px;
+    
+}
+
+
+
+.select-name{
+    font-size: 35px;
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 25px 150px;
+    font-weight: bolder;
+}
+
+.select-price{
+    font-size: 20px;
+    color: #b98604;
+    margin: 15px 150px;
+}
+.select-size{
+    font-size: 20px;
+    margin: 15px 150px;
+    color: rgb(143, 141, 141);
+    
+}
+
+.select-number{
+    margin: 15px 150px;
+    font-size: 20px;
+    color: rgb(143, 141, 141);
+
+}
+.select-type{
+    font-size: 20px;
+    margin: 15px 150px;
+    color: rgb(143, 141, 141);
+
+}
+
+
+.button-back{
+    border: none;
+    border-bottom: 1.5px solid #b98604;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+.back{
+
+    background-color: white;
+    border:none;
+    height: 50px;
+    width: 120px;
+    cursor: pointer;
+    margin-left: 45px;
+    font-size: 40px;
+
+}
+
+.inside-img-card{
+
+    width: 100%;
+    height: 610px;
+    margin-top: 89px;
+
+}
+
+.card {
     
     width: 280px;
     height: 290px;
-    margin: 30px;
-    margin-left: 50px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Adjust shadow as needed */   
+    margin: 40px;
+    margin-top: 140px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);  
     border-radius: 4px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    transition: transform 0.3s ease-in-out;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.img-card{
-    height: 180px;
-    width: 280px;
-    border-radius: 4px;
-
+.card:hover {
+    transform: translateY(-5px);
 }
 
-.card-title{
-    margin-left:12px;
-    font-family:'Times New Roman', Times, serif;
+.img-card {
+    height: 190px;
+    width: 100%;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.card-title {
+    margin-left: 12px;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
-    
 }
 
-.star-card{
-    
-   margin-left: 240px;
-   margin-top: 0px;
-  color: grey;
-  font-size: 19px; 
-  cursor: pointer;
-  
+.star-card {
+   
+   float: right;
+   margin-right: 10px;
+   margin-top: 3px;
+    color: grey;
+    font-size: 19px; 
+    cursor: pointer;
 }
 
-.card-details{
+.card-details {
     margin-bottom: 1px;
-    margin-left:12px;
-    font-family:'Abyssinica SIL', serif ;
-
-
+    margin-left: 12px;
+    font-family: 'Abyssinica SIL', serif;
 }
 
 
  /* SELL PAGE */
 
 .heading-sale{
-    padding: 20px 490px;
+    padding: 33px 490px;
 }
 
 .text-shadow{
@@ -357,6 +466,7 @@ transition: 0.4s;
           -1px -1px 2px rgba(255, 255, 255, 0.2); /* Inner shadow effect */
     border-radius: 4px; /* Optional: Add rounded corners */
     background-clip: text;
+    margin-top: 65px;
 }
 
 .heading-para{
@@ -368,7 +478,8 @@ transition: 0.4s;
 .main-card{
     background-color: #081740;
     display: flex;
-    height: 439.5px;
+    height: 429.5px;
+    margin-top: 9px;
 }
     
 .sell-card{
@@ -464,4 +575,12 @@ transition: 0.4s;
 .touch-input:focus {
     border-bottom: 2px solid white; /* Keeps the border color consistent on focus */
     box-shadow: none; /* Ensures no shadow effect on focus */
+}
+
+
+/* agent page */
+
+
+.agent-name{
+    margin-top: 90px;
 }

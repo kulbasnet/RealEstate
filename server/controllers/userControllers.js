@@ -75,11 +75,12 @@ const userLogin = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const user = await userModel.find();
-        res.status(200).json({ message: "Users with their information", user })
+        const users = await userModel.find();
+        const agents = users.filter(user => user.isAgent);
+        res.status(200).json({ message: "Users with their information", user : agents})
     } catch (error) {
         res.status(400).json({ message: "Sorry couldnot fo it ", error });
-    }
+    };
 }
 
 module.exports = {

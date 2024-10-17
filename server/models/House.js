@@ -36,13 +36,6 @@ const houseSchema = new Schema({
         data:Buffer,
         contentType:String
 
-    },
-
-    status:{
-        type:Boolean,
-        required:true,
-        default:false
-
     }
 
 })

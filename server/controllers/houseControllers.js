@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const houseModel = require('../models/House');
 const userModel = require('../models/User');
 const messageModel = require('../models/message');
@@ -5,7 +6,7 @@ const messageModel = require('../models/message');
 
 const createHouse = async (req,res)=>{
     try{
-        const {size,location, price, propertyNumber, propertyType,status,listedBy}= req.body;
+        const {size,location, price, propertyNumber, propertyType,listedBy}= req.body;
         const img=req.file;
 
         console.log("recieved body....",req.body);
@@ -14,22 +15,20 @@ const createHouse = async (req,res)=>{
 
 
         if (!img) {
-
             return res.status(400).json({
                 success: false,
                 error: "No image file uploaded"
             });
         }
 
-        if(!size || !location || !price || !propertyNumber || !propertyType || !status || !listedBy) {
-            res.status(400).json({
+        if(!size || !location || !price || !propertyNumber || !propertyType  || !listedBy) {
+           return res.status(400).json({
                 success:false, 
                 error: "You have to list all the required elements"})
 
         }
 
         const existingHouse = await houseModel.findOne({
-            
             location, 
             propertyNumber
         });
@@ -42,16 +41,23 @@ const createHouse = async (req,res)=>{
         }
 
         //Create NewHouse
-        const newHouse = await houseModel.create({size,location, price, propertyNumber, propertyType,status,listedBy,img:{
+        const newHouse = await houseModel.create({size,location, price, propertyNumber, propertyType    ,listedBy,img:{
             data:img.buffer,
             contentType:img.mimetype
     
         }});
+
+        const user= await userModel.findById(req.user.id);
+        if (user) {
+         user.createdHouse.push(newHouse._id); 
+         await user.save();
+     }
         res.status(200).json({
             success:true, 
             message:"New house Added",
             newHouse});
 
+      
 
     }catch(err){
         res.status(400).json({success:false, error: err.message})
@@ -59,13 +65,53 @@ const createHouse = async (req,res)=>{
 
 }
 
+
+const updateHouse = async(req,res)=>{
+    const {houseId}= req.params;
+    console.log("HouseID:",houseId);
+    try{
+        const HouseUpdate= await houseModel.findByIdAndUpdate(houseId, req.body,{
+            new:true,
+            runValidators:true,
+        })
+
+        if(!HouseUpdate){
+            return res.status(404).json({ success: false, message: "House not found" });
+
+        }
+
+        res.status(200).json({success:true,data:HouseUpdate});
+
+    }catch(error){
+        res.status(404).json({success:false,error:error.message});
+    }   
+}
+
 const getHouse = async(req,res)=>{
     try{
         const houses = await houseModel.find();
-        res.status(200).json({message:"Houses with their info", houses})
-        
+        // res.status(200).json({message:"Houses with their info", houses})
+
+
+        const housewithImages = houses.map((house)=>{
+            if(house.img && house.img.data){
+                const base64img= house.img.data.toString('base64');
+                return{
+                    ...house._doc,
+                    img:`data:${house.img.contentType}; base64,${base64img}`
+                }
+            }
+            return house;
+
+        })
+        // console.log(housewithImages);
+        res.status(200).json({
+            success: true,
+            houses: housewithImages
+        });
 
     }catch(error){
+        console.error("Error fetching houses:", error.message);
         res.status(404).json({error:"Sorry",error});
 
     }
@@ -78,12 +124,8 @@ const searchHouse = async(req,res)=>{
         const houses = await houseModel.find({ location: {$in : locationArray}});
         if (houses.length === 0 ){
             return res.status(404).json({success: true , error : "Sorry no such Houses"});
-
-
         }
-
         return res.status(200).json({success:true, houses });
-
 
 
     }catch(err){
@@ -97,6 +139,7 @@ const addToFavourite = async (req, res) => {
     const { houseId } = req.body;
 
     try {
+        console.log("HOuse id", houseId);
         const houseName = await houseModel.findOne({ houseId });
         if (!houseName) {
             return res.status(400).json({ success: false, error: "Sorry, no house found with that ID" });
@@ -145,6 +188,53 @@ const getFavouritehouse = async(req, res)=>{
 }
 
 
+const getAgentHouse = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user.id).populate('createdHouse');
+        // console.log("User",user);
+        // console.log("Created House",user?.createdHouse);
+        
+        if (!user || !user.createdHouse.length) {
+            return res.status(400).json({ success: false, error: "No houses found that you have created." });
+        }
+        res.status(200).json({ success: true, agentHouse: user.createdHouse });
+    } catch (error) {
+        res.status(404).json({ success: false, error: error.message });
+    }
+};
+
+const houseDelete  =  async(req,res)=>{
+    const {houseId} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(houseId)){
+        return res.status(400).json({ success:false,error:"Invalid Request"})
+    }
+
+    try{
+        const house = await houseModel.findByIdAndDelete(houseId)
+        if(!house){
+         return   res.status(404).json({success:false, error:"Sorry no such house to delete"})
+
+        }
+        const user =await userModel.findById(req.user.id);
+        if(!user){
+          return  res.status(404).json({success:false,error:"No such user"})
+        }
+
+        if(!user.createdHouse.includes(houseId)){
+          return  res.status(403).json({success:false,error:"Sorry since you didnot created house You cannot delete it"});
+        }
+        user.createdHouse =  user.createdHouse.filter(id=> id.toString() !== houseId);
+        await user.save();
+    }catch(error){
+        return res.status(404).json({success:false, error:"Sorry ssome error occured"})
+    }
+}
+
+
+
+
+
 const getinTouch = async (req,res)=>{
     try{
 
@@ -164,7 +254,6 @@ const getinTouch = async (req,res)=>{
 
     const newMessage = new messageModel ({name, email , message});
     await newMessage.save()
-
     res.status(200).json({ message: "Thank you for reaching out. We will get back to you soon!" });
 
 
@@ -177,4 +266,4 @@ const getinTouch = async (req,res)=>{
 
 
 
-module.exports = {getHouse,searchHouse, createHouse,addToFavourite,getFavouritehouse ,getinTouch};
+module.exports = {getAgentHouse,getHouse,searchHouse, createHouse,addToFavourite,getFavouritehouse ,houseDelete,getinTouch,updateHouse};

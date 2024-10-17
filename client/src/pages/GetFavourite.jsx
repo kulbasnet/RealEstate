@@ -1,6 +1,11 @@
 import React from 'react'
 
-function InsideBuy() {
+
+function GetFavourite() {
+    
+
+
+
   return (
     <div>
       
@@ -8,4 +13,4 @@ function InsideBuy() {
   )
 }
 
-export default InsideBuy
+export default GetFavourite

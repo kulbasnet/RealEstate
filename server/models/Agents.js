@@ -21,9 +21,6 @@ const AgentSchema = new Schema({
 
     },
 
-    createdHouse:[{
-        type: mongoose.Schema.Types.ObjectId, ref:'House'}],
-
     message: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "message" 

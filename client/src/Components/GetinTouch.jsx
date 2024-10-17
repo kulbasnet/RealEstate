@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {toast} from "react-hot-toast";
 
-function GetinTouch() {
+function GetinTouch({userId, houseId}) {
     const [data, setData] = useState({
         name: "",
         email: "",
