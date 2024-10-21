@@ -8,19 +8,15 @@ import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 function Card() {
     const [houses, setHouses] = useState([]);
     const [selectedHouse, setSelectedHouse] = useState(null); // State for selected house
-    const authToken = localStorage.getItem('authToken'); 
+    // const authToken = localStorage.getItem('authToken'); 
     
 
     useEffect(() => {
         const getHouses = async () => {
-            const token = localStorage.getItem('authToken');
+            // const token = localStorage.getItem('authToken');
             // e.preventDefault();
             try {
-                const response = await axios.get("http://localhost:8000/house/gethouse", {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const response = await axios.get("http://localhost:8000/house/gethouse");
                 console.log(response.data.houses);
                 setHouses(response.data.houses);
             } catch (error) {
@@ -28,12 +24,15 @@ function Card() {
             }
         };
 
-        if (authToken) {
-            getHouses();
-        } else {
-            console.log("No authentication token found");
-        }
-    }, [authToken]);
+        // if (authToken) {
+        //     getHouses();
+        // } else {
+        //     console.log("No authentication token found");
+        
+        // }
+
+        getHouses();
+    }, []);
 
     const handleCardClick = (house) => {
         setSelectedHouse(house); // Set the clicked house as selected
@@ -78,8 +77,8 @@ function Card() {
                             
                             <Favourite houseId={house._id} key={house._id}/>
                             <h3 className='card-title'>{house.location}</h3>
-                            <p className='card-details'>Price: {house.price}</p>
-                            <p className='card-details'>Size: {house.size}</p>
+                            <p className='card-details'>Price: {house.price} </p>
+                            <p className='card-details'>Size: {house.size} Anna</p>
 
 
                         </div>

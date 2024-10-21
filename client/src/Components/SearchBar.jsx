@@ -1,3 +1,5 @@
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -39,6 +41,8 @@ function SearchBar() {
 
     return (
         <div>
+                        <button onClick={handleClick} className='search-button'><FontAwesomeIcon icon={faSearch} color='white'/></button>
+
             <input
                 className='search'
                 type='text'
@@ -46,7 +50,6 @@ function SearchBar() {
                 onChange={handleInput}
                 placeholder='Search...'
             />
-            <button onClick={handleClick}>Search</button>
 
         </div>
     );

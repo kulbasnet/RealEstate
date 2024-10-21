@@ -2,8 +2,7 @@ import React from 'react'
 import logo from "../Components/logo.png"
 import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import UserFont from '../Components/UserFont';
 function Agentnav() {
   return (
     <div>
@@ -12,7 +11,7 @@ function Agentnav() {
             <ul className='Agent-link'>
             <li><Link to={'/dashboard'} className="Agent-li-link">DASHBOARD</Link></li>
             <li><Link to={'/message'} className='Agent-li-link'>MESSAGE</Link> </li>
-            <li><FontAwesomeIcon icon={faUser} color='white' className='agent-user' /></li>
+            <li><UserFont/></li>
             </ul>
            
 
