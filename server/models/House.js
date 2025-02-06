@@ -17,7 +17,8 @@ const houseSchema = new Schema({
      },
 
     listedBy:{
-        type:String,
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:'User',
         required:[true, "Agent Name is Required"]
 
     },

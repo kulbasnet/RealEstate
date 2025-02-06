@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {toast} from "react-hot-toast";
 
-function GetinTouch({userId, houseId}) {
+function GetinTouch({userId, houseId, isAgent}) {
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -50,6 +50,11 @@ function GetinTouch({userId, houseId}) {
             <br />
             <form onSubmit={getinTouch} >
             <h1 className='touch-heading'>Get In Touch</h1><br/>
+            <div className='agent-det'>
+                <p>{isAgent?.email || "NA"}</p>
+                <p>{isAgent?.name || "NA"}</p>
+                <p>{isAgent?.phoneNumber || "NA"}</p>
+            </div>
 
                 <input 
                     type='text' 

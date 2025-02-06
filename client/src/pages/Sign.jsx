@@ -1,128 +1,122 @@
-import React, { useState } from 'react';
-import photo from './photo1.jpg';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+// import { Checkbox } from "@/components/ui/checkbox";
+import login from "./login1.jpg";
+// import Google from "./Google.png";
 
-function Sign() {
-    const [data, setData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        isAgent: false,
-        phoneNumber: "",
-    });
+export default function Sign() {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    isAgent: false,
+    phoneNumber:"",
+  });
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const userSignup = async (e) => {
+    e.preventDefault();
+    const { name, email, password, isAgent, phoneNumber } = data;
 
-    const userSignUp = async (e) => {
-        e.preventDefault();
-        const { name, email, password, isAgent, phoneNumber } = data;
+    if (isAgent && !phoneNumber) {
+      toast.error("Phone number is required for agents.");
+      return;
+  }
+  // If not an agent, clear the phoneNumber field to avoid sending empty strings
+  let updatedPhoneNumber = phoneNumber;
+  if (!isAgent) {
+      updatedPhoneNumber = null;
+  }
 
-        if (isAgent && !phoneNumber) {
-            toast.error("Phone number is required for agents.");
-            return;
-        }
-        // If not an agent, clear the phoneNumber field to avoid sending empty strings
-        let updatedPhoneNumber = phoneNumber;
-        if (!isAgent) {
-            updatedPhoneNumber = null;
-        }
+    try {
+      const { data } = await Axios.post("http://localhost:8000/sign", { name, email, password, isAgent, phoneNumber: updatedPhoneNumber });
 
-        try {
-            console.log({ name, email, password, isAgent, phoneNumber: updatedPhoneNumber });
-
-            const response = await Axios.post("http://localhost:8000/sign", {
-                name, email, password, isAgent, phoneNumber: updatedPhoneNumber
-            })
-
-            if (response.data.error) {
-                toast.error(response.data.message || "Something went wrong.");
-            } else {
-                setData({});
-                toast.success("SignUp Succesfull")
-                navigate('/login');
-            }
-
-        } catch (err) {
-            // Log the full error if response is undefined
-            console.error("Server response:", err.response?.data);
-            toast.error(err.response?.data?.message || "An error occurred.");
-
-            // If there's a response, log the message from the server
-            if (err.response && err.response.data && err.response.data.error) {
-                toast.error(err.response.data.error);
-            } else {
-                toast.error("An unexpected error occurred");
-            }
-        }
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setData({});
+        toast.success("Verification code is sent in your Email", {
+          style: {
+            color: "#081740",
+            border: "1px solid #081740",
+            width: "180px",
+          },
+          iconTheme: {
+            primary: "#081740",
+            secondary: "#081740",
+          },
+        });
+        navigate("/verifyEmail");
+      }
+    } catch (error) {
+      console.error("Server response:", err.response?.data);      
+      toast.error(err.response?.data?.message || "An error occurred.");
+      
+      if (err.response && err.response.data && err.response.data.error) {
+        toast.error(err.response.data.error);
+    } else {
+        toast.error("An unexpected error occurred");
     }
 
-    function handleEmail(e) {
-        setData({ ...data, email: e.target.value });
     }
+  };
 
-    function handlePassword(e) {
-        setData({ ...data, password: e.target.value });
-    }
+  return (
+    <div className="flex min-h-screen">
+      <div className="hidden lg:block lg:w-1/2 relative">
+        <img src={login} alt="Modern house" className="absolute inset-0 w-full h-full object-cover" />
+      </div>
 
-    function handleName(e) {
-        setData({ ...data, name: e.target.value });
-    }
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-serif mb-2">Sign Up</h1>
+          </div>
 
-    function handlePhoneNumber(e) {
-        setData({ ...data, phoneNumber: e.target.value });
-    }
-
-    function handleCheck(e) {
-        setData({ ...data, isAgent: e.target.checked });
-
-    }
-
-    return (
-        <div>
-            <img src={photo} alt='pic' className='image' />
-            <div className='sign'>
-                <h1 className='heading'>Sign Up</h1>
-
-                <form onSubmit={userSignUp} >
-                    <label className='label'>Name</label><br />
-                    <input
-                        className='input'
-                        value={data.name}
-                        onChange={handleName}
-                    /><br />
-                    <label className='label'>Email</label><br />
-                    <input
-                        className='input'
-                        value={data.email}
-                        onChange={handleEmail}
-                        type='email'
-                    /><br />
-                    <label className='label'>Password</label><br />
-                    <input
-                        className='input'
-                        value={data.password}
-                        onChange={handlePassword}
-                        type='password'
-                        required
-                    /><br />
-                    <input className='check' type='checkbox' checked={data.isAgent} onChange={handleCheck} />
-                    <label className='check-label'>Agent?</label><br />
-
-                    {data.isAgent &&
-                        <div className='agent-info'>
-                            <label className='label'>Phone Number</label>
-                            <input type='number' className='check-input' value={data.phoneNumber} onChange={handlePhoneNumber} /><br />
-                        </div>
-                    }
-                    <button className='button' type='submit'>Submit</button>
-
-                </form>
-                <p className='link-sign'> Back to <Link to={"/login"} className='link-underline'>Login</Link></p>
+          <form onSubmit={userSignup  } className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="font-abyssinica text-lg">Name</Label>
+              <Input id="name" type="text" value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} required className="border-zinc-200" />
             </div>
-        </div>
-    );
-}
 
-export default Sign;
+            <div className="space-y-2">
+              <Label htmlFor="email" className="font-abyssinica text-lg">Email</Label>
+              <Input id="email" type="email" value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} required className="border-zinc-200" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password" className="font-abyssinica text-lg">Password</Label>
+              <Input id="password" type="password" value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} required className="border-zinc-200" />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <input type="checkbox" id="agent" checked={data.isAgent} onChange={(e) => setData({ ...data, isAgent: e.target.checked })} />
+              <Label htmlFor="agent" className="font-abyssinica text-sm">Agent?</Label>
+            </div>
+
+            {data.isAgent && 
+            
+            <div className="space-y-2">
+            <Label htmlFor="Number" className="font-abyssinica text-lg">Phone Number</Label>
+            <Input id="Number" type="number" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
+          </div>
+          }
+
+            <div className="space-y-4">
+              <Button type="submit" className="w-full bg-[#081740] hover:bg-[#b98604]">Sign Up</Button>
+            </div>
+
+            <div className="text-center space-y-2">
+              <div className="text-sm">Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

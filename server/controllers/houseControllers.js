@@ -21,7 +21,7 @@ const createHouse = async (req,res)=>{
             });
         }
 
-        if(!size || !location || !price || !propertyNumber || !propertyType  || !listedBy) {
+        if(!size || !location || !price || !propertyNumber || !propertyType) {
            return res.status(400).json({
                success:false, 
                 error: "You have to list all the required elements"})
@@ -41,7 +41,7 @@ const createHouse = async (req,res)=>{
         }
 
         //Create NewHouse
-        const newHouse = await houseModel.create({size,location, price, propertyNumber, propertyType    ,listedBy,img:{
+        const newHouse = await houseModel.create({size,location, price, propertyNumber, propertyType,listedBy,img:{
             data:img.buffer,
             contentType:img.mimetype
     
@@ -52,6 +52,11 @@ const createHouse = async (req,res)=>{
          user.createdHouse.push(newHouse._id); 
          await user.save();
      }
+
+     res.status(201).json({
+        success: true,
+        house: newHouse
+    });
 
 
     }catch(err){
@@ -186,8 +191,8 @@ const getFavouritehouse = async(req, res)=>{
 const getAgentHouse = async (req, res) => {
     try {
         const user = await userModel.findById(req.user.id).populate('createdHouse');
-        // console.log("User",user);
-        // console.log("Created House",user?.createdHouse);
+        //  console.log("User",user);
+        // c onsole.log("Created House",user?.createdHouse);
         
         if (!user || !user.createdHouse.length) {
             return res.status(400).json({ success: false, error: "No houses found that you have created." });

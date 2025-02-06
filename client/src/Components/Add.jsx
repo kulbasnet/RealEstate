@@ -11,17 +11,16 @@ function Add({onclose}) {
                                                 price:"",
                                                 propertyNumber:'',
                                                 propertyType:"",
-                                                listedBy:'',
+                                                listedby:"",
                                                 img:null})
 
     const authToken =localStorage.getItem('authToken');
 
     
 
-
     const createHouse =  async(e)=>{
       e.preventDefault();
-      const {location,size,price,propertyNumber,propertyType,listedBy,img} = houseData;
+      const {location,size,price,propertyNumber,propertyType,img,userId} = houseData;
       const formData = new FormData();
     formData.append('img',img);    
     formData.append('size',size)
@@ -29,7 +28,7 @@ function Add({onclose}) {
     formData.append('location',location)
     formData.append('propertyNumber',propertyNumber)
     formData.append('propertyType',propertyType)
-    formData.append('listedBy',listedBy)
+    formData.append('listed by',userId)
 
     if (!authToken) {
       console.log("No authentication found");
@@ -37,10 +36,10 @@ function Add({onclose}) {
       return;
   }
         try{
-          const response = await axios.post('http://localhost:8000/house/createhouse',formData,{
+          const response = await axios.post('http://localhost:8000/house/createHouse',formData,{
             headers:{
-              'Content-Type':'multipart/form-data',
-              "Authorization":`Bearer ${authToken}`
+              "Authorization":`Bearer ${authToken}`,
+              'Content-Type':'multipart/form-data'
             }
           })
 
@@ -53,13 +52,13 @@ function Add({onclose}) {
                 price:"",
                 propertyNumber:'',
                 propertyType:"",  
-                listedBy:'',
+               
                 img:null});
               toast.success("New house has been Added");
 
             }
         }catch(error){
-            console.log(`something is wrong ${error.message}`);
+            console.log(`${error.message}`);
         }
         
         }
@@ -84,9 +83,7 @@ function Add({onclose}) {
         function handlePropertyType(e){
           setHouseData({...houseData, propertyType:e.target.value});
         }
-        function handleListedBy(e){
-          setHouseData({...houseData, listedBy:e.target.value});
-        }
+        
 
         function handleImage(e){
           setHouseData({...houseData,img:e.target.files[0]})
@@ -117,8 +114,6 @@ function Add({onclose}) {
         <input type='number' onChange={handlePropertyNumber} value={houseData.propertyNumber} className='add-input' /><br/>
         <label>Property Type</label>
         <input type='text' onChange={handlePropertyType} value={houseData.propertyType} className='add-input' /><br/>
-        <label>listed By</label>
-        <input type='text' onChange={handleListedBy} value={houseData.listedBy} className='add-input' /><br/>
         <input type='file' onChange={handleImage} /><br/>
 
         <button type='submit'>Add</button>

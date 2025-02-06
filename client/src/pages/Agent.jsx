@@ -1,5 +1,5 @@
 import React from 'react'
-import AgentList from '../Components/AgentList'
+import AgentList from '../components/AgentList'
 
 function Agent() {
   return (

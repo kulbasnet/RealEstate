@@ -20,12 +20,11 @@ function SearchBar() {
                 if (response.data.success) {
                     setHouses(response.data.houses);
                 } else {
-                    setHouses([]);
+                  console.error(response.data);
                 }
     
             } catch (error) {
                 console.error("Error occurred:", error.message);
-                setHouses([]);
             }
         };
 
@@ -41,15 +40,28 @@ function SearchBar() {
 
     return (
         <div>
-                        <button onClick={handleClick} className='search-button'><FontAwesomeIcon icon={faSearch} color='white'/></button>
+         <button onClick={handleClick} className='search-button'><FontAwesomeIcon icon={faSearch} color='white'/></button>
 
             <input
                 className='search'
                 type='text'
                 value={input}
                 onChange={handleInput}
-                placeholder='Search...'
+                placeholder='Enter location '
             />
+
+
+            {/* {houses.length>0 ? (houses.map((house,index)=>{
+                <div key={index} className='house-card'>
+                    <h3>{house.location}</h3>
+                    <p>{house.price}</p>
+
+                    </div>
+            })):
+            (
+                <p>No such houses</p>
+                
+            )} */}
 
         </div>
     );

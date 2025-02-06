@@ -19,7 +19,9 @@ function NavBar() {
         <li><Link to={'/'} className='li-link'>BUY</Link></li>
         <li><Link to={'/sell'} className='li-link' >SELL</Link></li>
         <li><Link to={'/agent'} className='li-link'>AGENT</Link></li>
-        <li> <SearchBar/> </li> 
+        {location.pathname !== '/hero' && <li><SearchBar/></li>}
+
+        {/* <li> <SearchBar/> </li>  */}
           <li><UserFont/></li>
    </ul>
        

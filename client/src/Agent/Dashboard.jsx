@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import AgentHouse from '../Components/AgentHouse';
-import Add from '../Components/Add';
+import AgentHouse from '../components/AgentHouse';
+import Add from '../components/Add';
 
 function Dashboard() {
   const [seen, setSeen] = useState(false);

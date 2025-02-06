@@ -1,19 +1,18 @@
-import axios from 'axios';
+import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Delte from './Delte';
 
 function AgentHouse() {
     const [agentHouse, setAgentHouse] = useState([]);
-    const authToken = localStorage.getItem("authToken");
 
     const getAgentHouse = async () => {
         const token = localStorage.getItem("authToken");
-        if(!authToken){
+        if(!token){
             console.log("No authentication found");
             return;
         }
         try {
-            const response = await axios.get("http://localhost:8000/house/agentHouse",{
+            const response = await Axios.get("http://localhost:8000/house/agentHouse",{
                 headers:{
                     'Authorization': `Bearer ${token}`
                 }
@@ -42,7 +41,6 @@ function AgentHouse() {
             <table>
             <thead>
             <tr>
-                {/* <th>Gallery</th> */}
                 <th>Location</th>
                 <th>Price</th>
                 <th>Size</th>
@@ -54,9 +52,8 @@ function AgentHouse() {
             <tbody>
             {agentHouse.length > 0 ?
                 (agentHouse.map((house, index) => (
-              <tr key={index} className='Agent-House'>
+              <tr key={house._id||index} className='Agent-House'>
                   
-                 {/* <td><img src='{house.img}' alt='house' width="20px"/></td> */}
                     <td> {house.location}</td>
                      <td>{house.price}</td> 
                      <td> {house.size}</td>   

@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+    uid: { type: String, 
+        unique: true, 
+        required: true 
+    },
+
     name: {
         type: String,
         required: [true, "Personal Name is required"],
-        unique: true
     },
 
     email: {
@@ -29,22 +33,33 @@ const userSchema = new Schema({
         default: false
 
     },
-    phoneNumber: {
+
+    isVerified:{
+        type:Boolean,
+        default:false
+
+    },
+    phoneNumber: { 
         type: String,
         required: function () {
             return this.isAgent;
         }
     },
-    createdHouse:
-        {
+    createdHouse:{
         type:[ mongoose.Schema.Types.ObjectId],
         ref:'House',
         default:[],
     },
-    message: [{
+    message:{
         type: String
 
-    }]
+    },
+    resetPasswordToken:String,
+    resetPasswordExpiresAt:Date,
+    verificationToken:String,
+    verificationTokenExpiresAt:Date 
+
+
 })
 
 
