@@ -244,10 +244,7 @@ transition: 0.4s;
     width: 100%; /* Ensure it spans the width of the screen */
     z-index: 100; /* Keeps the navbar above other content */
 }
-.nav-logo{
-    margin-left: 22px;
-   
-}
+
 .nav-link{
     float: right;
     display: flex;
@@ -267,7 +264,7 @@ transition: 0.4s;
 
 }
 
-.search {
+/* .search {
     margin-right:70px;
     height: 26px;
     border: none;
@@ -275,13 +272,13 @@ transition: 0.4s;
     text-align: center;
     background-color: #081740;
     color: white;
-    outline: none; /* Removes default focus outline */
-    font-size: 14px; /* Adjust font size if needed */
+    outline: none; 
+    font-size: 14px; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
   .search:focus {
-    border-bottom: 2px solid white; /* Keeps the border color consistent on focus */
-    box-shadow: none; /* Ensures no shadow effect on focus */
+    border-bottom: 2px solid white; 
+    box-shadow: none; 
 }
   
 
@@ -301,7 +298,7 @@ transition: 0.4s;
    
     color: rgb(242, 198, 20);
     transition: 0.3s;
-}
+} */
 
 .icon-button{
    
@@ -319,18 +316,16 @@ transition: 0.4s;
 
 
 .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: normal;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* justify-content: normal; */
+    border:1px solid black;
     /* padding: 20px; */
+    width: 590px;
     
 }
 
-.house-details{
-    width: 100%;
-    position: relative;
-    
-}
+
 .house-details h2{
     margin-left: 50px;
     font-size: 45px;
@@ -458,9 +453,9 @@ transition: 0.4s;
 
  /* SELL PAGE */
 
-.heading-sale{
+/* .heading-sale{
     padding: 33px 490px;
-}
+} */
 
 .text-shadow{
     text-align: center;
@@ -570,10 +565,11 @@ transition: 0.4s;
     border-bottom: 1px white solid;
     background-color: #081740;
     width: 320px;
-    outline: none; /* Removes default focus outline */
-    font-size: 14px; /* Adjust font size if needed */
+    outline: none; 
+    font-size: 14px; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
     color: white;
+    padding-top: 10px;
 }
   
    
@@ -590,6 +586,22 @@ transition: 0.4s;
 .agent-name{
     margin-top: 90px;
 }
+
+
+.leaflet-container {
+    height: 610px;
+    margin-top: 100px;
+    width: 810px;
+  
+  }
+
+
+.ic{
+    background-color: #b98604;
+    border-radius:2px;
+}
+
+
 
 
 @layer base {

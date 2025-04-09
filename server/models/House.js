@@ -16,30 +16,59 @@ const houseSchema = new Schema({
         required:[true, "House size is required"]
      },
 
-    listedBy:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:'User',
-        required:[true, "Agent Name is Required"]
+     Bedroom:{
+        type: Number,
 
-    },
+     },
+     Bathrooms:{
+        type: Number,
+
+     },
+
+     status:{
+        type:String,
+        required:[true,'required']
+     },
+
+
+     listedBy: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: [true, "Agent Name is Required"]
+      },
 
     propertyNumber:{
         type:Number,
         required:[true,'Property number is necessary']
     },
 
+    latitude:{
+
+     type:Number
+     
+    }
+,
+    longitude:{
+        type:Number
+    },
+    
     propertyType:{
         type:String,
 
+    },
+
+    Description:{
+        type: String,
     },
 
     img:{
         data:Buffer,
         contentType:String
 
-    }
-
-})
+    },
+    
+},     {timestamps: true}
+)
 
 
 const House = mongoose.model('House', houseSchema)

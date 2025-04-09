@@ -1,3 +1,4 @@
+import { Delete } from 'lucide-react'
 import React from 'react'
 
 function Message() {
@@ -5,6 +6,7 @@ function Message() {
     <div>
       
       <h1>HI</h1>
+      <Delete/>
     </div>
   )
 }

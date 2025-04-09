@@ -34,6 +34,18 @@ const userSchema = new Schema({
 
     },
 
+    isAdmin:{
+
+        type:Boolean,
+        default:false
+
+    },
+   
+    location:{
+        type:String
+
+    },
+
     isVerified:{
         type:Boolean,
         default:false
@@ -50,8 +62,18 @@ const userSchema = new Schema({
         ref:'House',
         default:[],
     },
+
     message:{
-        type: String
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:'message',
+        default:[]
+        
+
+    },
+
+    img:{
+        data:Buffer,
+        contentType:String
 
     },
     resetPasswordToken:String,

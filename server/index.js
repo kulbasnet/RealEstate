@@ -5,9 +5,13 @@ require('dotenv').config();
 const app = express();
 const houseRoutes = require('./routes/houseRoutes');
 const userRoutes = require('./routes/userRoutes');
+// const adminRoutes = require("../server/routes/AdminRoute");
+const adminRoute = require("../server/routes/AdminRoute")
 const port = process.env.PORT || 8000;
 const admin =require('./firebase');
 const User= require('../server/models/User');
+// const Admin = require('../server/models/Admin');
+const { generateJWTToken } = require('./utils/generateJWTToken');
 
 // Middleware 
 app.use(cors());
@@ -15,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/house', houseRoutes);
 app.use('/', userRoutes);
+app.use("/adminRoute", adminRoute);
+// app.use('/admin', adminRoutes);
 
 // Database connection function
 const connectDB = async () => {
@@ -76,6 +82,10 @@ async function verifyToken(req, res, next) {
         if (!user) {
             user = new User({ uid, email, password, name });
             await user.save();
+            user.isVerified = true;
+            generateJWTToken(res,user._id);
+
+
         }else{
             if (user.name !== name) {
             user.name = name;

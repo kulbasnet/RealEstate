@@ -5,21 +5,22 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-function Favourite() {
+function Favourite({ houseId }) {  // Accept houseId as a prop
     const [favourite, setFavourite] = useState([]);
     const authToken = localStorage.getItem("authToken");
 
-    const addToFavourite = async ({houseId}) => {
+    const addToFavourite = async () => {  // Remove parameter, use houseId from props
         if (!authToken) {
             console.log("No authentication found");
+            toast.error("Please log in to add favorites.");
             return;
         }
 
         try {
             const response = await axios.post(
                 "http://localhost:8000/house/addToFavourite", 
-                { houseId },
-                {
+                { houseId },  // Use houseId from props
+                {   
                     headers: {
                         'Authorization': `Bearer ${authToken}`,
                     },
@@ -41,10 +42,9 @@ function Favourite() {
 
     return (
         <div>
-            {/* Pass the houseId to the addToFavourite function */}
             <FontAwesomeIcon 
                 icon={faStar} 
-                onClick={addToFavourite} 
+                onClick={addToFavourite}  // Correct function call
                 className='star-card' 
             />
         </div>

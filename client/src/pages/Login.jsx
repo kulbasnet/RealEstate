@@ -46,11 +46,12 @@ export default function Login() {
             color: "#081740",
             border: "1px solid #081740",
             width: "180px",
-          },
-          iconTheme: {
-            primary: "#081740",
+            
+        },
+        iconTheme: {
+            primary: "white",
             secondary: "#081740",
-          },
+        },
         })
       }
 
@@ -61,7 +62,7 @@ export default function Login() {
       if (isAgent) {
         navigate("/dashBoard")
       } else {
-        navigate("/")
+        navigate("/hero");
       }
     } catch (error) {
       console.error("Sorry, an error occurred:", error.message)
@@ -89,7 +90,7 @@ export default function Login() {
       console.log("token set", data.token)
 
       toast.success("Google sign-in successful")
-      navigate("/")
+      navigate("/hero")
     } catch (error) {
       console.error("Error during Google sign-in:", error.response?.data || error.message)
       toast.error(error.response?.data?.error || "An error occurred during Google sign-in")
@@ -139,7 +140,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <input
                 id="agent"
                 type="checkbox"
@@ -149,7 +150,7 @@ export default function Login() {
               <Label htmlFor="agent" className="font-abyssinica text-sm">
                 Agent?
               </Label>
-            </div>
+            </div> */}
 
             <div className="space-y-4">
               <Button type="submit" className="w-full bg-[#081740] hover:bg-[#b98604]">

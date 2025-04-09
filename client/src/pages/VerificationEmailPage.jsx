@@ -17,7 +17,7 @@ function VerificationEmailPage() {
     }
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/VerifyEmail", { code: value });
+      const  data = await Axios.post("http://localhost:8000/verifyEmail", { code:value });
       if (data.error) {
         toast.error("Sorry, empty or invalid code.");
         console.log(`Error: ${data.error}`);
@@ -33,12 +33,10 @@ function VerificationEmailPage() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Left side - Image */}
       <div className="hidden lg:block lg:w-1/2 relative">
         <img src={login} alt="Email Verification" className="absolute inset-0 w-full h-full object-cover" />
       </div>
 
-      {/* Right side - OTP Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">

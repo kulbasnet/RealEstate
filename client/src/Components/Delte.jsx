@@ -3,6 +3,7 @@ import React from 'react'
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {toast} from 'react-hot-toast';
+import { Trash2 } from 'lucide-react';
 
 
 function Delte({houseId}) {
@@ -39,7 +40,9 @@ function Delte({houseId}) {
   return (
     <div>
         
-             <button onClick={houseDelete}><FontAwesomeIcon icon={faTrash}/></button>
+<button onClick={houseDelete} className="p-2 rounded">
+    <Trash2/>
+</button>
         
        
       

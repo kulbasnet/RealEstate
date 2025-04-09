@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-hot-toast";
@@ -16,30 +16,52 @@ export default function Sign() {
     password: "",
     isAgent: false,
     phoneNumber:"",
+    location:"",
+    img: null
   });
   const navigate = useNavigate();
 
   const userSignup = async (e) => {
     e.preventDefault();
-    const { name, email, password, isAgent, phoneNumber } = data;
+    const { name, email, password, isAgent, phoneNumber, location, img } = data;
 
-    if (isAgent && !phoneNumber) {
+    const formData = new FormData()
+    formData.append('img', img);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("location", location);
+    formData.append("isAgent", isAgent);
+
+
+    if (isAgent && !phoneNumber && !location) {
       toast.error("Phone number is required for agents.");
       return;
   }
   // If not an agent, clear the phoneNumber field to avoid sending empty strings
   let updatedPhoneNumber = phoneNumber;
+  let updatedLocation = location;
   if (!isAgent) {
       updatedPhoneNumber = null;
+      updatedLocation= null;
+
   }
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/sign", { name, email, password, isAgent, phoneNumber: updatedPhoneNumber });
+      const { data } = await Axios.post("http://localhost:8000/sign", formData);
 
       if (data.error) {
         toast.error(data.error);
       } else {
-        setData({});
+        setData({
+          name:'',
+          email:"",
+          password:"",
+          img: null,
+          location:'',
+          phoneNumber:'',
+        });
         toast.success("Verification code is sent in your Email", {
           style: {
             color: "#081740",
@@ -54,17 +76,36 @@ export default function Sign() {
         navigate("/verifyEmail");
       }
     } catch (error) {
-      console.error("Server response:", err.response?.data);      
+      console.error("Server response:", error.response?.data);      
       toast.error(err.response?.data?.message || "An error occurred.");
       
-      if (err.response && err.response.data && err.response.data.error) {
-        toast.error(err.response.data.error);
-    } else {
-        toast.error("An unexpected error occurred");
-    }
+    //   if (err.response && err.response.data && err.response.data.error) {
+    //     toast.error(err.response.data.error);
+    // } else {
+    //     toast.error("An unexpected error occurred");
+    // }
 
     }
   };
+
+  useEffect(()=>{
+    if(data.img){
+      console.log("File has been sent");
+    }
+  }, [data.img])
+
+  function handleImage(e){
+    setData({...data, img: e.target.files[0]});
+  }
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="flex min-h-screen">
@@ -78,11 +119,16 @@ export default function Sign() {
             <h1 className="text-4xl font-serif mb-2">Sign Up</h1>
           </div>
 
-          <form onSubmit={userSignup  } className="space-y-6">
+          <form onSubmit={userSignup} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="name" className="font-abyssinica text-lg">Name</Label>
               <Input id="name" type="text" value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} required className="border-zinc-200" />
             </div>
+
+             <div className="space-y-2">
+             <Label htmlFor="image" className="font-abyssinica text-lg">Profile Image</Label>
+              <Input id="image" type="file" onChange={handleImage} className="cursor-pointer" />
+             </div>
 
             <div className="space-y-2">
               <Label htmlFor="email" className="font-abyssinica text-lg">Email</Label>
@@ -104,6 +150,10 @@ export default function Sign() {
             <div className="space-y-2">
             <Label htmlFor="Number" className="font-abyssinica text-lg">Phone Number</Label>
             <Input id="Number" type="number" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
+
+            <Label htmlFor="text" className="font-abyssinica text-lg"> Location</Label>
+            <Input id="text" type="text" value={data.location} onChange={(e) => setData({ ...data, location: e.target.value })} required className="border-zinc-200" />
+
           </div>
           }
 

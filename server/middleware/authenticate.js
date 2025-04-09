@@ -20,6 +20,7 @@ const authenticate = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded; // send the user data payload in req.user
+        req.admin = decoded;
         next();
     } catch (err) {
         res.status(400).json({ success: false, message: "Invalid token." });
