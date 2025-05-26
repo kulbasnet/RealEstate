@@ -50,7 +50,6 @@ function LatestHouse() {
                                         onClick={()=>{
                                             setSelected(house)
                                             console.log("clicked House",house);
-
                                         } }
                                     >
                                         <img
@@ -58,7 +57,10 @@ function LatestHouse() {
                                             alt="house"
                                             className="w-full h-48 mb-2 object-cover"
                                         />
+                                        <div className='flex justify-end mr-3'>
                                         <Favourite houseId={house._id} />
+
+                                        </div>
                                         <div className="p-4">
                                                 <CardTitle className="font-abyssinica">{house.location}</CardTitle>
                                             <CardDescription>

@@ -4,12 +4,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Sparkle } from 'lucide-react';
 
-function Favourite({ houseId }) {  // Accept houseId as a prop
+function Favourite({ houseId }) { 
     const [favourite, setFavourite] = useState([]);
     const authToken = localStorage.getItem("authToken");
 
-    const addToFavourite = async () => {  // Remove parameter, use houseId from props
+    const addToFavourite = async () => {  
         if (!authToken) {
             console.log("No authentication found");
             toast.error("Please log in to add favorites.");
@@ -19,7 +20,7 @@ function Favourite({ houseId }) {  // Accept houseId as a prop
         try {
             const response = await axios.post(
                 "http://localhost:8000/house/addToFavourite", 
-                { houseId },  // Use houseId from props
+                { houseId },  
                 {   
                     headers: {
                         'Authorization': `Bearer ${authToken}`,
@@ -44,9 +45,10 @@ function Favourite({ houseId }) {  // Accept houseId as a prop
         <div>
             <FontAwesomeIcon 
                 icon={faStar} 
-                onClick={addToFavourite}  // Correct function call
-                className='star-card' 
-            />
+                onClick={addToFavourite}  
+                className='text-gray-500   w-5 hover:text-[#DB9F05] cursor-pointer'
+
+                />
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { Card, CardDescription, CardTitle } from './ui/card';
 function CardSkeleton() {
   return (
     <div >
-      <Card className="h-[300px] w-[280px] shadow-lg" >
+      <Card className="h-[300px] w-[280px] ml-10 mt-10 shadow-lg" >
         <CardTitle><Skeleton width={280} height={200}/></CardTitle>
         <CardDescription><Skeleton width={250}  className='mt-3 '/></CardDescription>
         <CardDescription><Skeleton width={210}/></CardDescription>

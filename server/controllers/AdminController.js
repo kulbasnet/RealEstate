@@ -77,6 +77,7 @@ const adminLogin = async(req,res)=>{
         const admin =await adminModel.findOne({email});
         if(!admin || !(await bcrypt.compare(password, admin.password))){
             res.status(400).json({success:false, message: "Invalid credintails"});
+            return;
         }
 
         const token = jwt.sign(
@@ -112,6 +113,7 @@ const adminVerify=async(req,res)=>{
 
         if(!admin){
             return res.status(404).json({success: false, message:"Invalid or expired verifucation code"});
+        
         }
 
         admin.isVerified= true;
@@ -170,10 +172,10 @@ const adminResetPassword = async(req,res)=>{
             resetPasswordExpiresAt: {$gt:Date.now()},
         })
 
-        // if(!admin){
-        //     return res.status(400).json({success: false, message: "No such admin"});
+        if(!admin){
+            return res.status(400).json({success: false, message: "No such admin"});
 
-        // }
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         admin.password = hashedPassword;
@@ -295,6 +297,7 @@ const adminUpdate= async(req,res)=>{
 
         if(!admin) {
             res.status(404).json({success: false, message: error.message});
+            return;
         }
 
         const adminResponse = admin.toObject();

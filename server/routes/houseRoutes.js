@@ -17,7 +17,8 @@ const {  houseFilter,
         getMessage,
         updateStatus,
         getLatestMessage,
-        updateMessage
+        updateMessage,
+        // getRecommendation
                          } = require('../controllers/houseControllers');
 const authenticate = require('../middleware/authenticate');
 const multer = require('multer');
@@ -35,7 +36,7 @@ router.get('/getHouse',getHouse);
 router.delete('/delete/:houseId',authenticate,houseDelete);
 router.get('/agentHouse',authenticate,getAgentHouse);
 router.put('/updateHouse/:houseId',authenticate, upload.single('img'),updateHouse);
-router.get('/getLatestHouse',getLatestHouse);
+router.get('/getLatestHouse', getLatestHouse);
 router.get("/priceSort", priceSorting );
 router.get("/houseFilter",houseFilter);
 router.get('/houseSort/:propertyType', HouseTypeSort);
@@ -45,6 +46,7 @@ router.get("/getMessage", authenticate, getMessage);
 router.get("/getLatestMessage", authenticate, getLatestMessage);
 router.put("/updateStatus/:messageId", authenticate, updateStatus);
 router.put("/updateMessage/:messageId", authenticate, updateMessage);
+// router.get('/recommend/:houseId', getRecommendation);
 
 
 

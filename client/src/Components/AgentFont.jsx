@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
+import { User, LogOut } from 'lucide-react';
 function AgentFont() {
     const [logged, setLogged] = useState(false);
     const [seen, setSeen] = useState(false);
@@ -61,16 +62,20 @@ function AgentFont() {
                                 <li>
                                     <Link 
                                         to={'/agentProfile'} 
-                                        className="block px-4 py-2 hover:bg-gray-200"
+                                        className="flex gap-3 px-4 py-2 font-semibold hover:bg-gray-200"
                                     >
+                                    <User className='w-4'/>
+                                        
                                         Profile
                                     </Link>
                                 </li>
                                 <li>
                                     <button 
                                         onClick={handleLogout} 
-                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                        className="flex gap-3 w-full text-left font-semibold px-4 py-2 hover:bg-gray-200"
                                     >
+                                    <LogOut className='w-4'/>
+                                        
                                         Logout
                                     </button>
                                 </li>

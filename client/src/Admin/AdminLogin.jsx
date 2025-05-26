@@ -67,8 +67,6 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen">
-     
-
       <div className="w-full  flex items-center justify-center p-8 ">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
@@ -100,17 +98,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="flex items-center space-x-2">
-              <input
-                id="agent"
-                type="checkbox"
-                defaultChecked={data.isAgent}
-                onChange={(e)=>setData({...data, isAdmin: e.target.checked})}
-              />  
-              <Label htmlFor="agent" className="font-abyssinica text-sm">
-                Admin?
-              </Label>
-            </div>
+           
 
             <div className="space-y-4">
               <Button type="submit" className="w-full bg-[#081740] hover:bg-[#b98604]">
@@ -129,10 +117,15 @@ export default function Login() {
                   Create an Account
                 </Link>
               </div>
+              <div className="mt-[650px] text-sm text-blue-600 ">
+      <Link to="/login">User?</Link>
+ 
+      </div>  
             </div>
           </form>
         </div>
       </div>
+      
     </div>
   )
 }

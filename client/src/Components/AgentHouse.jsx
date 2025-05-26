@@ -80,6 +80,7 @@ export default function AgentHouse() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead></TableHead>
               <TableHead>Location</TableHead>
               <TableHead>Price</TableHead>
               <TableHead>Size</TableHead>
@@ -97,9 +98,9 @@ export default function AgentHouse() {
           </TableHeader>
           <TableBody>
             {agentHouse.length > 0 ? (
-              agentHouse.map((house) => (
-                <TableRow key={house._id}>
-                  {/* <TableCell><img src={house.img}/></TableCell> */}
+              agentHouse.map((house, index) => (
+                <TableRow key={house._id || index}>
+                  <TableCell className="w-[130px] h-11"><img src={house.img}/></TableCell>
                   <TableCell>{house.location}</TableCell>
                   <TableCell>${house.price.toLocaleString()}</TableCell>
                   <TableCell>{house.size}</TableCell>

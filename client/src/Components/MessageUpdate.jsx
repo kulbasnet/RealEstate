@@ -91,8 +91,8 @@ const authentication = localStorage.getItem("authToken");
     <div>
            <Dialog >
                       <DialogTrigger asChild>
-                      <Button variant="ghost" size="icon"  className="bg-[#081740] text-white">
-                      <span className="sr-only">Reconsider</span>
+                      <Button variant="ghost" size="icon"  className="bg-[#081740] hover:bg-[#b98604] w-[80px]">
+                      <span className="sr-onlyv text-white ">Reconsider</span>
                     </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[495px]" >

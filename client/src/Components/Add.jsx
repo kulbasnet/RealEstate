@@ -174,18 +174,20 @@ console.log("Retrieved authToken:", authToken); //
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="location">Location</Label>
-              <Input id="location" value={houseData.location} onChange={handleLocation} placeholder="Kuleshwor" />
+              <Input id="location" value={houseData.location} onChange={handleLocation} placeholder="Kuleshwor"  required/>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+
+            <div className="grid gap-2">
+                <Label htmlFor="price">Latitude</Label>
+                <Input id="price"  type="number" value={houseData.latitude} onChange={handleLatitude} placeholder="" required />
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="size">Longitude</Label>
-                <Input id="size" type="number" value={houseData.longitude} onChange={handleLongitude} placeholder="" />
+                <Input id="size"  type="number" value={houseData.longitude} onChange={handleLongitude} placeholder="" required />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="price">Latitude</Label>
-                <Input id="price" type="number" value={houseData.latitude} onChange={handleLatitude} placeholder="" />
-              </div>
+              
             </div>
 
             
@@ -193,11 +195,11 @@ console.log("Retrieved authToken:", authToken); //
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="size">Size</Label>
-                <Input id="size" type="number" value={houseData.size} onChange={handleSize} placeholder="Sq ft" />
+                <Input id="size" min="0" type="number" value={houseData.size} onChange={handleSize} placeholder="Sq ft" required />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="price">Price</Label>
-                <Input id="price" type="number" value={houseData.price} onChange={handlePrice} placeholder="Rs" />
+                <Input id="price" min="0" type="number" value={houseData.price} onChange={handlePrice} placeholder="Rs" required />
               </div>
             </div>
 
@@ -208,6 +210,8 @@ console.log("Retrieved authToken:", authToken); //
                 type="number"
                 value={houseData.propertyNumber}
                 onChange={handlePropertyNumber}
+                min="0"
+                required
               />
             </div>
 
@@ -215,18 +219,18 @@ console.log("Retrieved authToken:", authToken); //
   <div className="grid grid-cols-2 gap-4">
     <div className="grid gap-2">
       <Label htmlFor="bedroom">Bedrooms</Label>
-      <Input id="bedroom" type="number" value={houseData.Bedroom} onChange={handleBedroom} />
+      <Input id="bedroom" min="0" type="number" value={houseData.Bedroom} onChange={handleBedroom} required />
     </div>
     <div className="grid gap-2">
       <Label htmlFor="bathrooms">Bathrooms</Label>
-      <Input id="bathrooms" type="number" value={houseData.Bathrooms} onChange={handleBathrooms} />
+      <Input id="bathrooms" min="0" type="number" value={houseData.Bathrooms} onChange={handleBathrooms}  required/>
     </div>
   </div>
 )}
 
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
-              <Input id="description" value={houseData.Description} onChange={handleDescription} />
+              <Input id="description" value={houseData.Description} onChange={handleDescription} required />
             </div>
 
 
@@ -269,7 +273,7 @@ console.log("Retrieved authToken:", authToken); //
             </div>
             <div className="grid gap-2">
               <Label htmlFor="image">Property Image</Label>
-              <Input id="image" type="file" onChange={handleImage} className="cursor-pointer" />
+              <Input id="image" type="file" onChange={handleImage} className="cursor-pointer" required />
             </div>
           </div>
 

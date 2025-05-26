@@ -33,7 +33,7 @@ function Dashboard() {
     <div>
       {loggedIn ? ( <>
         <div>
-          <div className='flex justify-end mr-[45px] mt-11'>
+          <div className='flex justify-end mr-[75px] mt-[130px]'>
           <button className='inline-flex items-center px-4 py-2 border-2 border-primary text-primary rounded-lg
         hover:bg-primary hover:text-[#b98604] transition-all duration-100 
         font-medium group'

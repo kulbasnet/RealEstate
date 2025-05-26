@@ -5,7 +5,7 @@ const messageModel = require('../models/message');
 const message = require('../models/message');
 const { geoCordinate} = require("../utils/geoCordinate");
 const { sendBookingConfirmation } = require('../Resend/nodemail');
-
+const axios = require('axios');
 
 const createHouse = async (req,res)=>{
     try{
@@ -404,7 +404,6 @@ const addToFavourite = async (req, res) => {
     
 const getFavouritehouse = async (req, res) => {
     try {
-        // Validate user existence
         const user = await userModel.findById(req.user.id).populate('favouriteHouse');
         if (!user) {
             return res.status(404).json({ 
@@ -413,7 +412,6 @@ const getFavouritehouse = async (req, res) => {
             });
         }
 
-        // Check if favorite houses exist
         if (!user.favouriteHouse || user.favouriteHouse.length === 0) {
             return res.status(200).json({ 
                 success: true, 
@@ -422,11 +420,24 @@ const getFavouritehouse = async (req, res) => {
             });
         }
 
-        // Return favorite houses
+        const favouriteHousewithImages = user.favouriteHouse.map((house)=>{
+            if(house.img && house.img.data){
+                const base64img =  house.img.data.toString('base64');
+                return{
+                    ...house._doc,
+                    img: `data:${house.img.contentType};base64,${base64img}`
+                };
+ 
+
+            }
+            return house;
+
+        })
+
         res.status(200).json({ 
             success: true, 
             message: "Favorite houses retrieved successfully",
-            data: user.favouriteHouse 
+            data: favouriteHousewithImages
         });
 
     } catch (err) {
@@ -440,14 +451,31 @@ const getFavouritehouse = async (req, res) => {
 };
 const getAgentHouse = async (req, res) => {
     try {
-        const user = await userModel.findById(req.user.id).populate('createdHouse');
+        const users = await userModel.findById(req.user.id).populate('createdHouse');
         //  console.log("User",user);
         // c onsole.log("Created House",user?.createdHouse);
         
-        if (!user || !user.createdHouse.length) {
+        if (!users || !users.createdHouse.length) {
             return res.status(400).json({ success: false, error: "No houses found that you have created." });
         }
-        res.status(200).json({ success: true, agentHouse: user.createdHouse });
+
+        const userHouseWithImages = users.createdHouse.map((house) => {
+            if (house.img && house.img.data) {
+                const base64img = house.img.data.toString('base64');
+                return {
+                    ...house._doc,
+                    img: `data:${house.img.contentType};base64,${base64img}`
+                };
+            }
+            return house;
+        });
+        
+
+
+
+
+
+        res.status(200).json({ success: true, agentHouse: userHouseWithImages });
     } catch (error) {
         res.status(404).json({ success: false, error: error.message });
     }
@@ -490,19 +518,16 @@ const getinTouch = async (req,res)=>{
 
     try{
 
-        const {name, email,message, date, phoneNumber} = req.body;
+        const {name, email, message, date, phoneNumber} = req.body;
 
-    if(!name||typeof name !== 'string' || name.trim()===""){
-        res.json({error: "Sorry please correct name"});
-    }
+    // if(!name||typeof name !== 'string' || name.trim()===""){
+    //     res.json({error: "Sorry please correct name"});
+    // }
 
-    if(!email||typeof email!='string' || !email.includes('@')){
-        res.status(400).json({error:'Use the correct way to provide your email'})
-    }
 
-    if(message.length<0){
-        res.status(400).json({error:"Please give the message"});
-    }
+    // if(message.length<0){
+    //     res.status(400).json({error:"Please give the message"});
+    // }
 
     const house = await houseModel.findById(houseId);
     if(!house){
@@ -514,7 +539,8 @@ const getinTouch = async (req,res)=>{
             return res.status(404).json({ error: "Agent not found." });
         }
 
-    const newMessage = new messageModel ({name, 
+    const newMessage = new messageModel({
+        name, 
         email , 
         message,
         phoneNumber, 
@@ -645,7 +671,17 @@ const updateStatus = async (req, res) => {
         messageId,
         { status }, 
         { new: true, runValidators: true }
-      );
+      ).populate("from to");
+
+
+      if (message.from?.email) {
+      await sendBookingConfirmation(message.from.email, status, message.from.name);
+    }
+
+    // Send email to agent (message.to)
+    if (message.to?.email) {
+      await sendBookingConfirmation(message.to.email, status, message.to.name);
+    }
   
       if (!message) {
         return res.status(404).json({ 
@@ -654,10 +690,7 @@ const updateStatus = async (req, res) => {
         });
       }
 
-      if(status === "Confirmed" || status === "Cancelled"){
-        await sendBookingConfirmation(message.from.email, status);
-
-      }
+    
   
       res.status(200).json({ 
         success: true, 
@@ -735,19 +768,40 @@ const updateStatus = async (req, res) => {
             message: error.message
         });
 
-
-
     }
-
-
-
-
 
   }
 
 
 
+const getRecommendation= async(req,res)=>{
+    const {houseId} = req.params;
+    // console.log("🔁 Fetching recommendations from Python for house:", houseId);
 
+
+    
+    if (!mongoose.Types.ObjectId.isValid(houseId)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid House ID format'
+    });
+  }
+
+    try{
+          const response = await axios.get(`http://localhost:5000/r/recommend/${houseId}`);
+            return res.status(200).json({
+            success: true,
+            message: "Recommended houses based on input house",
+            recommendations: response.data.recommendations
+                        });
+
+
+    }catch(error){
+        console.error("Error fetching recommendations:", error.message);
+        res.status(404).json({error:"Sorry",error});
+
+}
+}
 
 
 
@@ -768,6 +822,7 @@ module.exports = { getMessage,
                    houseStatus,
                    updateStatus,
                    getLatestMessage, 
-                   updateMessage
+                   updateMessage, 
+                   getRecommendation
+            
                 };
- 

@@ -45,7 +45,7 @@ function GetinTouch({ house }) {
             if (data.error) {
                 toast.error(data.error);
             } else {
-                setFormData({ name: "", email: "", message: "" });
+                setFormData({ name: "", email: "", message: "", phoneNumber:"" });
                 setSelectedDate(null);
                 toast.success("Message Sent");
             }
@@ -65,7 +65,6 @@ function GetinTouch({ house }) {
     return (
         <div id='getInTouchSection' className='bg-[#081740] h-[300px] flex w-full items-center justify-center px-10'>
             <form onSubmit={handleSubmit} className="flex w-full max-w-5xl justify-between">
-                {/* Agent Details */}
                 {house?.listedBy && (
                     <div className="agent-det text-white flex mt-3">
                         {house.listedBy.img ? (
@@ -88,10 +87,18 @@ function GetinTouch({ house }) {
                     </div>
                 )}
 
-                {/* Form */}
                 <div className='flex flex-col items-start'>
                     <h1 className='text-white font-abyssinica text-2xl mb-2 ml-[85px]'>Get In Touch</h1>
                     
+                    <input 
+                        type='email' 
+                        name='email' 
+                        placeholder='EMAIL' 
+                        value={formData.email} 
+                        onChange={handleChange} 
+                        className='touch-input w-full mb-2'
+                        required
+                    />
                     <input 
                         type='text' 
                         name='name' 
@@ -99,22 +106,26 @@ function GetinTouch({ house }) {
                         value={formData.name} 
                         onChange={handleChange} 
                         className='touch-input w-full mb-2'
+                        required
                     />
                     <input 
-                        type='email' 
-                        name='email' 
-                        placeholder='EMAIL' 
+                        type='number' 
+                        name='phoneNumber' 
+                        placeholder='Phone Number' 
                         value={formData.phoneNumber} 
                         onChange={handleChange} 
                         className='touch-input w-full mb-2'
+                        min="0"
+                        required
                     />
                     <input 
                         type='text' 
                         name='message' 
-                        placeholder='Message...' 
+                        placeholder='MESSAGE' 
                         value={formData.message} 
                         onChange={handleChange} 
                         className='touch-input w-full mb-2'
+                        required
                     />
 
                     <Popover>
@@ -130,6 +141,8 @@ function GetinTouch({ house }) {
                                 selected={selectedDate}
                                 onSelect={setSelectedDate}
                                 initialFocus
+                                disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
+
                             />
                         </PopoverContent>
                     </Popover>

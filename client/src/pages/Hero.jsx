@@ -13,9 +13,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '@/components/Footer';
 import LatestHouse from '@/components/LatestHouse';
 import { useState } from 'react';
+import Recommend from '@/components/Recommend';
+import { useRecommendation } from '@/Context/RecommendationContext';
 
 function Hero({handleSearch, onSearch}) {
   const [searchinput, setSearchInput] = useState('');
+  const { selectedHouseId } = useRecommendation();
+
+
+
 
   return (<>
 <div className="relative mt-[100px]">
@@ -33,24 +39,24 @@ function Hero({handleSearch, onSearch}) {
       <div>
         
       <div className=' ml-[160px] mt-[40px]'>
-          <h1 className=' font-semibold text-2xl'>Homes For You</h1>
+          <h1 className=' font-semibold text-2xl'>Recommended Homes For You</h1>
           <p className='text-gray-600 '>Based on homes you recently viewed </p>
           </div>
-          <Card className="h-[340px] w-96 mt-[20px] ml-[160px] flex flex-col items-center text-center p-4 shadow-lg">
-  <CardHeader className="flex flex-col items-center gap-4">
-    <img src={sell} alt="pic" className="w-full h-50 object-cover" />
-    <CardTitle className="font-abyssinica text-2xl">Buy a Home</CardTitle>
-    <CardDescription className="text-black px-10">
-    </CardDescription>
-    <CardContent>
       
-    </CardContent>
-  </CardHeader>
-</Card>
+            {selectedHouseId ? (
+          <div >
+            <Recommend houseId={selectedHouseId} />
+          </div>
+        ) : (
+          <div className="h-48 w-full flex items-center justify-center text-gray-500 mt-4">
+            Click on a house to view recommendations.
+          </div>
+        )}
+             
       </div>
 
       <div>
-        <LatestHouse  />
+        <LatestHouse/>
       </div>
         
         

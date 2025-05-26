@@ -46,7 +46,6 @@ useEffect(()=>{
 
 const handleSearch = async (term) => {
   if (!term) {
-    // If search term is empty, refresh original list
     const token = localStorage.getItem('authToken');
     const response = await axios.get("http://localhost:8000/getUser", {
       headers: { Authorization: `Bearer ${token}` }
@@ -114,11 +113,11 @@ const handleSearch = async (term) => {
                 <p className="text-lg text-white">{selectedAgent.phoneNumber}</p>
                   </div>
 
-               {/* <div className=' mt-[100px] '>
-               <GetinTouch/>
+               <div className=' mt-[100px] '>
+               <GetinTouch agents={selectedAgent} />
 
                </div>
-               */}
+              
               </div>
               
 

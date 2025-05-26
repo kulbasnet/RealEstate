@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import  home from './home.png';
 import Card from './Card';
 
-function HouseMap({houses}) {
+function HouseMap({houses, selectedHouse, onHouseClick}) {
 
     // const customMark =(price)=> L.divIcon({
     //     className:"price-maker",
@@ -20,7 +20,7 @@ function HouseMap({houses}) {
         iconSize:[20,20]
     })
 
-
+   
 
 
 
@@ -30,17 +30,16 @@ function HouseMap({houses}) {
       <MapContainer 
         center={[27.7103,85.3222]}  
         zoom={13}
-        // style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-    {houses.map((house,index)=>(
+    {houses?.length > 0 && houses.map((house,index)=>(
             <Marker position={[house.latitude, house.longitude]} key={index} icon={cus}  >
                 {/* <Popup><img src={house.img} alt='house'/></Popup> */}
-                <Popup>
+                <Popup onclick={()=> onHouseClick(house)}>
                     <div className='w-[200px]'>
                         <img src={house.img} className='w-[300px] h-[110px]'/>
                       <h2 className='mt-1 font-bold font-abyssinica text-[#DB9F05]'>{house.location}</h2>  
@@ -50,16 +49,9 @@ function HouseMap({houses}) {
 
                     </div>
                 </Popup>
-                {/* <Popup className='h-[30px]'><Card house={house}/></Popup> */}
-
-
                 </Marker>
             
         ))}
-
-
-
-
 
       </MapContainer>
     </div>

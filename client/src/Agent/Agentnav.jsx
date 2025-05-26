@@ -2,17 +2,23 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 // import UserFont from '../components/UserFont';
 import AgentFont from '../components/AgentFont';
+import bur from "../pages/bur.png";
+import { Pyramid } from 'lucide-react';
 
 function Agentnav() {
   return (
     <div>
-      <nav className="bg-[#081740] h-[100px] flex items-center justify-end px-10 gap-[130px]">
-        <ul className="flex items-center space-x-8 text-white text-lg font-semibold gap-10">
+      <nav className="fixed top-0 left-0 w-full bg-[#081740] shadow-md z-50 flex items-center justify-between px-8 py-4 h-[100px]">
+      <Link to="/dashboard">
+            <img src={bur} className='h-15 w-auto ' />
+            </Link>
+        <ul className="flex gap-[100px] text-white text-lg font-semibold ml-[510px]">
+    
           <li>
             <Link to={'/dashboard'} className="hover:text-gray-300">DASHBOARD</Link>
           </li>
           <li>
-            <Link to={'/agentMessage'} className="hover:text-gray-300"> CLIENTS</Link>
+            <Link to={'/agentMessage'} className="hover:text-gray-300 flex gap-2 "> CLIENTS <Pyramid className='w-4 text-[#DB9F05]'/></Link>
           </li>
         </ul>
         <AgentFont />

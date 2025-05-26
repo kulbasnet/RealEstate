@@ -11,7 +11,6 @@ const messageSchema = new Schema ({
 
     email:{
         type:String,
-        required:[true, "email is nedded"],
     },
     
     message:{
@@ -50,7 +49,6 @@ const messageSchema = new Schema ({
     },
     time:{
         type: String,
-        required : true
     }
 
 }, 

@@ -95,13 +95,11 @@ const sendBookingConfirmation = async(email, status)=>{
       from : `Basnet Realties <${process.env.EMAIL_USER}>`,
       to: email,
       subject : `Appointment Booking`,
-      text: `Your booking has been ${status}`
+      text: `Your Appointment has been ${status}. Please remember your date.\n\nThank you,\nBasnet Realties`
     };
     await transporter.sendMail(mailOptions);
     console.log("Booking status has been changed");
-
-
-
+        console.log(`Email sent to ${email}`);
 
   }catch(error){
     console.error('Error :', error);
@@ -119,7 +117,7 @@ module.exports={
     sendVerificationEmail,
     sendPasswordResetEmail,
     sendResetSuccessEmail,
-    sendWelcomeEmail, 
+    sendWelcomeEmail,
     sendBookingConfirmation
 
 };

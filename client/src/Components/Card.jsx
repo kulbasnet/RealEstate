@@ -7,7 +7,10 @@ import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import HouseMap from './HouseMap';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from './ui/select';
 import CardSkeleton from './CardSkeleton';
+import { Button } from './ui/button';
+import { FilterIcon } from 'lucide-react';
 // import { Card } from './ui/card';
+import { useRecommendation } from '@/Context/RecommendationContext';
 
 
 
@@ -22,7 +25,7 @@ function Card({position}) {
         propertyType:""
 
     })
-    // const touchRef = useRef(null);
+    const {setSelectedHouseId} = useRecommendation();
 
 
 
@@ -30,10 +33,7 @@ function Card({position}) {
         return sort === "asc" ? a.location.localeCompare(b.location) : b.location.localeCompare(a.location);
     })
 
-    // const scrolltoTouchRef=()=>{
-    //     touchRef.current?.scrollIntoView({behavior : "smooth"});
-    // }
-    
+ 
 
     useEffect(() => {
         const houseFilter = async () => {
@@ -64,6 +64,8 @@ function Card({position}) {
 
     const handleCardClick = (house) => {
         setSelectedHouse(house); 
+        setSelectedHouseId(house._id); // Send house ID to parent
+    
     };
 
     const handleBackClick = () => {
@@ -77,7 +79,7 @@ function Card({position}) {
     }
 
     return (<>
-    <div className='flex ml-[190px]'>
+    <div className='flex ml-[130px]'>
     <div className='flex items-center font-abyssinica justify-end mr-[20px] mt-[130px] h-[20px]  '>
         <Select onValueChange={value=> handleFilterChange("status", value)} >
             <SelectTrigger className="w-[120px] border-gray-300">
@@ -121,7 +123,9 @@ function Card({position}) {
             <SelectItem value="z-a">SORT: SORT Z-A</SelectItem>
           </SelectContent>
         </Select>
-        
+        <Button variant="outline" size="icon">
+            <FilterIcon  className='h-4 w-4' />
+        </Button>
       </div>
 
 
@@ -130,7 +134,7 @@ function Card({position}) {
 
 
         <div className=' flex flex-wrap  gap-9 w-[700px] h-auto mt-2 mb-10'>
-            {isloading && Array(4).fill(0).map((_, index)=> <CardSkeleton key={index} />)}
+            {isloading && Array(4).fill(0).map((_, index)=> <CardSkeleton key={index}/>)}
         {sortedHouse.length > 0 ? (
             sortedHouse.map((house, index) => (
                 <div
@@ -138,8 +142,11 @@ function Card({position}) {
                     className='h-[300px] w-[280px] shadow-lg ml-9 mt-8 '
                     onClick={() => handleCardClick(house)}
                 >
-                    <img src={house.img} alt='house' className='w-full h-48 mb-2 object-cover'/>
-                    <Favourite houseId={house._id} key={house._id}/>
+                    <img src={house.img} alt='house' loading='lazy' className='w-full h-48 mb-2 object-cover'/>
+                    <div  className='flex justify-end mr-3'>
+                    <Favourite houseId={house._id} key={house._id} />
+
+                        </div>
                     <h3 className='card-title'>{house.location}</h3>
                     <p className='card-details'>Price: {house.price} </p>
                     <p className='card-details'>Size: {house.size} Anna</p>
@@ -160,7 +167,10 @@ function Card({position}) {
                     </button>
 
                     <img src={selectedHouse.img} alt="House" className="w-full h-[305px] mt-9 mb-5 object-cover rounded-lg" />
+                    <div className='flex justify-end mr-3'>
                     <Favourite houseId={selectedHouse._id} />
+
+                        </div>
 
                     <h2 className="text-2xl font-bold mt-11">{selectedHouse.location}</h2>
 
@@ -185,7 +195,7 @@ function Card({position}) {
                     {/* <p className="mt-2">Phone Number : {selectedHouse.listedBy?.email || "Anonymous"}</p> */}
 
 
-                    <HouseMap position={[selectedHouse.latitude, selectedHouse.longitude]} houses={[selectedHouse]} />
+                    <HouseMap position={[selectedHouse.latitude, selectedHouse.longitude]} houses={[selectedHouse]} onHouseClick={handleCardClick} />
   
                     <GetinTouch  house={selectedHouse}  />
                 </div>

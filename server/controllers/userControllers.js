@@ -145,12 +145,10 @@ const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // checking if the user exist or not
-
         const user = await userModel.findOne({ email });
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            res.status(400).json({ success: false, error: "Invalid Credintials" });
+          return  res.status(400).json({ success: false, error: "Invalid Credintials" });
         }
 
         const isVerified = user.isVerified;
@@ -170,7 +168,7 @@ const userLogin = async (req, res) => {
             { expiresIn: '1h' }
 
         );
-       res.json({success:true, message: user.isAgent ? 'Agent is logged in ': 'User logged in ', token , isAgent: user.isAgent});
+      return res.json({success:true, message: user.isAgent ? 'Agent is logged in ': 'User logged in ', token , isAgent: user.isAgent});
 
     } catch (error) {
         res.status(400).json({sucess: false, message: error.message })

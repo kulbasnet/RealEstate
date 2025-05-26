@@ -5,13 +5,10 @@ require('dotenv').config();
 const app = express();
 const houseRoutes = require('./routes/houseRoutes');
 const userRoutes = require('./routes/userRoutes');
-// const adminRoutes = require("../server/routes/AdminRoute");
+const recommendationRoutes = require('./routes/recommendationRoute');
 const adminRoute = require("../server/routes/AdminRoute")
 const port = process.env.PORT || 8000;
-const admin =require('./firebase');
-const User= require('../server/models/User');
 // const Admin = require('../server/models/Admin');
-const { generateJWTToken } = require('./utils/generateJWTToken');
 
 // Middleware 
 app.use(cors());
@@ -20,9 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/house', houseRoutes);
 app.use('/', userRoutes);
 app.use("/adminRoute", adminRoute);
-// app.use('/admin', adminRoutes);
+app.use('/A', recommendationRoutes);
 
-// Database connection function
+
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
@@ -33,10 +30,8 @@ const connectDB = async () => {
     }
 };
 
-// Start the server and connect to the database
 const startServer = async () => {
     await connectDB(); // Wait for the database connection
-    // Default routing
     app.get('/', (req, res) => {
         res.json('Hi house!');
     });
@@ -50,53 +45,53 @@ const startServer = async () => {
 startServer();
 
 
-async function verifyToken(req, res, next) {
-    const idToken = req.headers.authorization?.split("Bearer ")[1]; // Ensure proper token format
+// async function verifyToken(req, res, next) {
+//     const idToken = req.headers.authorization?.split("Bearer ")[1]; // Ensure proper token format
   
-    if (!idToken) {
-      return res.status(401).json({ error: "Unauthorized: No token provided" });
-    }
+//     if (!idToken) {
+//       return res.status(401).json({ error: "Unauthorized: No token provided" });
+//     }
   
-    try {
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
-      req.user = decodedToken;
-      next();
-    } catch (error) {
-      console.error("Token verification error:", error.message);
-      return res.status(401).json({ error: "Unauthorized: Invalid token" });
-    }
-  }
+//     try {
+//       const decodedToken = await admin.auth().verifyIdToken(idToken);
+//       req.user = decodedToken;
+//       next();
+//     } catch (error) {
+//       console.error("Token verification error:", error.message);
+//       return res.status(401).json({ error: "Unauthorized: Invalid token" });
+//     }
+//   }
 
 
-  app.post("/protected", verifyToken, async (req, res) => {
-    let { uid, email, password, name } = req.user;
+//   app.post("/protected", verifyToken, async (req, res) => {
+//     let { uid, email, password, name } = req.user;
 
-    if (!password) {
-        console.log("Password missing, setting default password.");
-        password = "defaultPassword123";  
-    }
+//     if (!password) {
+//         console.log("Password missing, setting default password.");
+//         password = "defaultPassword123";  
+//     }
 
-    try {
-        let user = await User.findOne({ uid });
+//     try {
+//         let user = await User.findOne({ uid });
 
-        if (!user) {
-            user = new User({ uid, email, password, name });
-            await user.save();
-            user.isVerified = true;
-            generateJWTToken(res,user._id);
+//         if (!user) {
+//             user = new User({ uid, email, password, name });
+//             await user.save();
+//             user.isVerified = true;
+//             generateJWTToken(res,user._id);
 
 
-        }else{
-            if (user.name !== name) {
-            user.name = name;
-            await user.save();
-            }
-        }
+//         }else{
+//             if (user.name !== name) {
+//             user.name = name;
+//             await user.save();
+//             }
+//         }
 
-        res.json(user);
+//         res.json(user);
        
-    } catch (error) {
-        console.error("Database error:", error.message);
-        res.status(500).json({ error: error.message });
-    }
-});
+//     } catch (error) {
+//         console.error("Database error:", error.message);
+//         res.status(500).json({ error: error.message });
+//     }
+// });

@@ -6,10 +6,9 @@ import { useEffect } from 'react';
 import SearchBar from '@/components/SearchBar';
 import Map from '@/components/HouseMap';
 
-function Buy() {
+function Buy({onHouseSelect}) {
   const [houses, setHouses] = useState([]);
   const [selectedHouse, setSelectedHouse] = useState(null); // State for selected house
-  // const authToken = localStorage.getItem('authToken'); 
 
 
   useEffect(() => {
@@ -70,7 +69,7 @@ function Buy() {
       </div>
 
           <div className='ml-[820px]'>
-          <Card houses={houses}/>   
+          <Card houses={houses} onHouseSelect={onHouseSelect}/>   
           </div>
           </div>
      

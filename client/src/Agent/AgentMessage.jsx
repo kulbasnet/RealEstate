@@ -2,9 +2,11 @@ import { Badge } from '@/components/ui/badge';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, FilterIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 
 function AgentMessage() {
     const [messages, setMessages] = useState([]);
@@ -44,6 +46,39 @@ function AgentMessage() {
 
         fetchMessages();
     }, [authentication]);
+
+
+
+
+    const getLatestMessage = async()=>{
+
+    if(!authentication){
+        console.log("Please login");
+        return;
+    }
+
+    try{
+
+        const response = await axios.get("http://localhost:8000/house/getLatestMessage", {
+            headers:{
+                Authorization : `Bearer ${authentication}`
+            }
+        })
+
+        if(response.data.success){
+            setMessages(response.data.data);
+            console.log(response.data.data);
+        }else{
+            console.log("Sorry error");
+        }
+
+        
+    }catch(error){
+        console.log("Error", error);
+
+    }
+}
+
 
 
     const updateStatus = async (messageId, newStatus) => {
@@ -100,8 +135,32 @@ function AgentMessage() {
 
     
 
-    return (
-       <div className="p-4 max-w-5xl mx-auto mt-5">
+    return (<>
+    <div className='flex items-center gap-4 font-abyssinica justify-end mr-[260px] mt-[130px] outline-none'>
+    <Select onValueChange={(value)=>{
+                if (value === "latest"){
+                    getLatestMessage()
+    
+                } else if(value === "Default"){
+                    fetchMessages();
+                }
+
+            }  }  >
+                <SelectTrigger className="w-[180px] border-gray-300">
+                    <SelectValue placeholder="SORT"/>
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="latest" >Latest</SelectItem>
+                    <SelectItem value="Default" >Default</SelectItem>
+
+                </SelectContent>
+            </Select>
+            <Button variant="outline" size="icon">
+            <FilterIcon className="h-4 w-4" />
+            </Button>
+
+    </div>
+           <div className="p-4 max-w-5xl mx-auto mt-[10px]">
   <h1 className="text-3xl font-bold text-[#dba829] ">Received Messages</h1>
   <p className="text-muted-foreground mb-6">View and manage your property viewing appointments</p>
 
@@ -182,6 +241,8 @@ function AgentMessage() {
     </div>
   )}
 </div>
+
+    </>
     )
 }
 

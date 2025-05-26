@@ -65,32 +65,40 @@ function UserFont() {
                     <DropdownMenuContent 
                         align="end" 
                         sideOffset={10} 
-                        className="w-48 bg-white shadow-lg rounded-lg p-2 z-50" // ✅ Fixed z-index
+                        className="w-48 bg-white shadow-lg rounded-lg p-2 z-50" // 
                     >
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         
                         {!isAgent && ( 
                             <DropdownMenuItem>
-                                <Link to="/userProfile" className="block  text-black hover:bg-gray-100 p-2 rounded">
+                                <Link to="/userProfile" className="block  text-black hover:bg-gray-100 p-2 font-bold rounded">
                                     Profile
                                 </Link>
                             </DropdownMenuItem>
                         )}
 
                         <DropdownMenuItem>
-                            <Link to='/favouriteHouse' className='block text-black  hover:bg-gray-100 p-2 rounded'>
+                            <Link to='/favouriteHouse' className='block text-black font-bold  hover:bg-gray-100 p-2 rounded'>
                             Favourite</Link>
                         </DropdownMenuItem>
 
                         <DropdownMenuItem>
+                        <Link to='/message' className='block text-black font-bold  hover:bg-gray-100 p-2 rounded'>
+                        Appointments</Link>
+                            
+                            </DropdownMenuItem>
+
+                        <DropdownMenuItem>
                             <button 
                                 onClick={handleLogout} 
-                                className="w-full text-left text-black hover:bg-gray-100 p-2 rounded"
+                                 className="w-full text-left text-black font-bold hover:bg-gray-100 p-2 rounded"
                             >
                                 Logout
                             </button>
                         </DropdownMenuItem>
+
+                       
                     </DropdownMenuContent>
                 </DropdownMenu>
             ) : (

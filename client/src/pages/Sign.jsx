@@ -149,7 +149,7 @@ export default function Sign() {
             
             <div className="space-y-2">
             <Label htmlFor="Number" className="font-abyssinica text-lg">Phone Number</Label>
-            <Input id="Number" type="number" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
+            <Input id="Number" type="number" min="0" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
 
             <Label htmlFor="text" className="font-abyssinica text-lg"> Location</Label>
             <Input id="text" type="text" value={data.location} onChange={(e) => setData({ ...data, location: e.target.value })} required className="border-zinc-200" />

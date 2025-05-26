@@ -14,7 +14,7 @@ function AdminResetPassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState("");
   const {token } = useParams();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
 
   const adminResetPassword = async(e)=>{
@@ -28,11 +28,10 @@ function AdminResetPassword() {
     try{
       const response = await axios.post(`http://localhost:8000/adminRoute/adminResetPassword/${token}`, {password});
       if(response.error){
-        toast.error(response.error);
         console.log(response.error);
       }else{
         toast.success(response.success);
-        navigate("/adminDashBoard");
+        navigate("/adminLogin");
       }
 
 
@@ -44,10 +43,6 @@ function AdminResetPassword() {
 
     }
   }
-
-
-
-
 
   return (
     <div className='flex min-h-screen'>      

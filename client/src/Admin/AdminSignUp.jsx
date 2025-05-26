@@ -140,15 +140,15 @@ export default function Sign() {
             
             <div className="space-y-2">
             <Label htmlFor="Number" className="font-abyssinica text-lg">Phone Number</Label>
-            <Input id="Number" type="number" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
+            <Input id="Number" min="0" type="number" value={data.phoneNumber} onChange={(e) => setData({ ...data, phoneNumber: e.target.value })} required className="border-zinc-200" />
 
 
             </div>
 
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <input type="checkbox" id="admin" checked={data.isAdmin} onChange={(e) => setData({ ...data, isAdmin: e.target.checked })} />
               <Label htmlFor="admin" className="font-abyssinica text-sm">Admin?</Label>
-            </div>
+            </div> */}
 
           
 

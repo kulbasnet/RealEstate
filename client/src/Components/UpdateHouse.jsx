@@ -170,18 +170,18 @@ function UpdateHouse({houseId}) {
                           <div className="grid grid-cols-2 gap-4">
                           <div className="grid gap-2">
                             <Label htmlFor="number">Size</Label>
-                           <Input placeholder="Sq ft" id="size" type="number" onChange={handleSize} value={house.size} />
+                           <Input placeholder="Sq ft" min="0" id="size" type="number" onChange={handleSize} value={house.size} />
                           </div>
                           <div className="grid gap-2">
                             <Label htmlFor="number" >Price</Label>
-                            <Input placeholder="Rs." id="price" type="number" onChange={handlePrice} value={house.price} />
+                            <Input placeholder="Rs." min="0"  id="price" type="number" onChange={handlePrice} value={house.price} />
                           </div> 
                           </div>
                           
                           <div className="grid grid-cols-2 gap-4">
                           <div className="grid gap-2">
                             <Label htmlFor="number">Latitude</Label>
-                           <Input  id="latitude" type="number" onChange={handleLatitude} value={house.latitude} />
+                           <Input  id="latitude"  type="number" onChange={handleLatitude} value={house.latitude} />
                           </div>
                           <div className="grid gap-2">
                             <Label htmlFor="number" >Longitude</Label>
@@ -191,18 +191,18 @@ function UpdateHouse({houseId}) {
                           
                           <div className="grid gap-2">
                             <Label htmlFor="number">Property Number</Label>
-                            <Input  id="number" onChange={handlePropertyNumber} value={house.propertyNumber} />
+                            <Input  id="number" min="0" onChange={handlePropertyNumber} value={house.propertyNumber} />
 
 
                             {["House", "Apartment", "Flat"].includes(house.propertyType) && (
                               <div className="grid grid-cols-2 gap-4">
                               <div className="grid gap-2">
                                 <Label htmlFor="bedroom">Bedrooms</Label>
-                                <Input id="bedroom" type="number" onChange={handleBedroom} value={house.Bedroom} />
+                                <Input id="bedroom" min="0" type="number" onChange={handleBedroom} value={house.Bedroom} />
                               </div>
                               <div className="grid gap-2">
                                 <Label htmlFor="bathrooms">Bathrooms</Label>
-                                <Input id="bathrooms" type="number"  onChange={handleBathrooms} value={house.Bathroom} />
+                                <Input id="bathrooms" min="0" type="number"  onChange={handleBathrooms} value={house.Bathroom} />
                               </div>
                             </div>
 

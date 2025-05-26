@@ -34,17 +34,21 @@ import AdminResetPassword from './Admin/AdminResetPassword';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Messages from './pages/Messages';
 import AgentMessage from './Agent/AgentMessage';
+import LandUnit from './pages/LandUnit';
+import Emi from './pages/Emi';
+import {RecommendationProvider } from '../src/Context/RecommendationContext';
 
 axios.defaults.baseURL = 'http://localhost:6001';
 axios.defaults.withCredentials = false;
 
 function App() {
   return (
-    <>
+    <RecommendationProvider>
     <Toaster position='top-center' toastOptions={{ duration: 3000 }} />
     <SkeletonTheme highlightColor='#90A4AE' baseColor='#F4F5F6'>
     <Routes>
-  {/* Routes with NavBar (Public Pages) */}
+
+
   <Route element={<WithNavBar />}>
   <Route path="/sell" element={<Sell />} />
   <Route path="/" element={<Buy />} />
@@ -55,9 +59,10 @@ function App() {
     <Route path='/userProfile' element={<UserProfile/>}/>
     <Route path='/favouriteHouse' element={<GetFavourite/>}/>
     <Route path='/message' element={<Messages/>} />
+    <Route path='/landUnit' element={<LandUnit/>}/>
+    <Route path='/emi' element={<Emi/>}/>
   </Route>
 
-  {/* Routes without NavBar (Login, Signup, etc.) */}
   <Route element={<WithoutNav />}>
     <Route path="/sign" element={<Sign />} />
     <Route path="/login" element={<Login />} />
@@ -72,7 +77,6 @@ function App() {
 
   </Route>
 
-  {/* ✅ Protect Agent Routes - Only Agents Can Access */}
   <Route element={<ProtectedRoute requiredAgent={true} />}>
     <Route element={<Agentnav />}>
       <Route path='/dashboard' element={<Dashboard />} />
@@ -96,7 +100,7 @@ function App() {
 
   </SkeletonTheme>
 
-    </>
+    </RecommendationProvider>
   );
 }
 
