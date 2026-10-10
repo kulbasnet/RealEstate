@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
-import { Button } from '@/components/ui/button';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/Components/ui/input-otp';
+import { Button } from '@/Components/ui/button';
 
 function AdminVerification() {
     const [value, setValue] = useState("");
@@ -19,7 +19,7 @@ function AdminVerification() {
 
         try{
 
-          const response = await axios.post("http://localhost:8000/adminRoute/adminVerify", { code:value });
+          const response = await axios.post("/adminRoute/adminVerify", { code:value });
           if(response.error){
             toast.error("Sorry empty or invalid codes");
             console.log(`Error: ${response.error}`);

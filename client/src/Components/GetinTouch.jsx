@@ -30,7 +30,7 @@ function GetinTouch({ house }) {
 
         try {
             const { data } = await axios.post(
-                `http://localhost:8000/house/getinTouch/${house._id}`,
+                `/house/getinTouch/${house._id}`,
                 {
                     ...formData,
                     date: selectedDate.toISOString()

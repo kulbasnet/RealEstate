@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import AgentList from '../components/AgentList'
+import AgentList from '../Components/AgentList'
 import agentHouse from './agentHouse.jpg';
-import SearchAgent from '@/components/SearchAgent';
+import SearchAgent from '@/Components/SearchAgent';
 import axios from 'axios';
-import GetinTouch from '@/components/GetinTouch';
+import GetinTouch from '@/Components/GetinTouch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +20,7 @@ useEffect(()=>{
  const getUser = async()=> {
 
   try{
-    const response = await axios.get("http://localhost:8000/getUser", {
+    const response = await axios.get("/getUser", {
       headers:{
         'Authorization' : `Bearer ${authentication}`
       }
@@ -47,7 +47,7 @@ useEffect(()=>{
 const handleSearch = async (term) => {
   if (!term) {
     const token = localStorage.getItem('authToken');
-    const response = await axios.get("http://localhost:8000/getUser", {
+    const response = await axios.get("/getUser", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setAgents(response.data.user || []);
@@ -56,7 +56,7 @@ const handleSearch = async (term) => {
 
   try {
     const token = localStorage.getItem('authToken');
-    const response = await axios.get("http://localhost:8000/searchAgent", {
+    const response = await axios.get("/searchAgent", {
       params: { name: term },
       headers: { Authorization: `Bearer ${token}` }
     });

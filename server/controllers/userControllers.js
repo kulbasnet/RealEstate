@@ -18,9 +18,6 @@ const userSignUp = async (req, res) => {
         const { name, email, password, isAgent, phoneNumber } = req.body;
         const img= req.file;
 
-        console.log("Received boddy", req.body);
-        console.log("Receiced file", req.file);
-
         const uid = uuidv4();
 
         if (!name) {

@@ -788,7 +788,8 @@ const getRecommendation= async(req,res)=>{
   }
 
     try{
-          const response = await axios.get(`http://localhost:5000/r/recommend/${houseId}`);
+          const recommendationApiUrl = process.env.RECOMMENDATION_API_URL || 'http://localhost:5000';
+          const response = await axios.get(`${recommendationApiUrl}/r/recommend/${houseId}`);
             return res.status(200).json({
             success: true,
             message: "Recommended houses based on input house",

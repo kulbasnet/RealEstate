@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { Button } from "@/Components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/Components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,12 +21,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/Components/ui/alert-dialog"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
 import { Pencil, Trash2 } from "lucide-react"
-// import { Textarea } from "@/components/ui/textarea"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
+// import { Textarea } from "@/Components/ui/textarea"
+import { Avatar, AvatarImage } from "@/Components/ui/avatar"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
@@ -48,7 +48,7 @@ function UserProfile() {
     const userInfo = async ()=>{
       try{
         const token = localStorage.getItem('authToken')
-        const response = await axios.get("http://localhost:8000/userInfo",{
+        const response = await axios.get("/userInfo",{
           headers: {Authorization: `Bearer ${token}`}
         });
         console.log(response.data.user);
@@ -82,7 +82,7 @@ const handleEdit =async()=>{
 
 
   try{
-    const response = await axios.put(`http://localhost:8000/updateUser/${user._id}`,formData, {
+    const response = await axios.put(`/updateUser/${user._id}`,formData, {
       headers:{
         Authorization: `Bearer ${authentication}`,
         "Content-Type" : 'multipart/form-data',
@@ -113,7 +113,7 @@ const handleEdit =async()=>{
 
 const handleDelete=async()=>{
   try{
-    const response= await axios.delete(`http://localhost:8000/userDelete/${user._id}`,{
+    const response= await axios.delete(`/userDelete/${user._id}`,{
       headers:{
         Authorization:`Bearer ${authentication}`
       }

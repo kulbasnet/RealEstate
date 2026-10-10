@@ -21,7 +21,7 @@ const Recommend = ({ houseId }) => {
     const getRecommendation = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/A/getRecommend/${houseId}`,{
+          `/A/getRecommend/${houseId}`,{
             headers:{
               "Content-Type" : "application/json"
             }
@@ -45,13 +45,13 @@ const Recommend = ({ houseId }) => {
   return (
     <>
 
-        <div className='flex  gap-3 ml-[140px] mt-10'>
+        <div className="flex gap-4 overflow-x-auto pb-4 sm:gap-6">
     {loading &&  <CardSkeleton/> }     
 
       {recommendations.map((house) => (
         <Card 
         key={house._id} 
-        className="h-[320px] min-w-[280px] border rounded-lg  shadow-sm hover:shadow-md transition-shadow"
+        className="h-[320px] w-[min(85vw,280px)] shrink-0 rounded-lg border shadow-sm transition-shadow hover:shadow-md"
         onClick={
           ()=>{
             setCardSelect(house)
@@ -83,8 +83,8 @@ const Recommend = ({ houseId }) => {
       ))}
 
 {cardSelect && (
-    <div className="fixed top-0 left-0 ml-[330px]  mt-5 bg-white bg-opacity-90 flex items-center justify-center z-50">
-        <div className="relative max-w-4xl w-full h-[100vh] bg-white p-6 rounded-lg shadow-lg overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-6">
+        <div className="relative h-[calc(100dvh-1.5rem)] w-full max-w-4xl overflow-y-auto rounded-lg bg-white p-4 shadow-lg sm:h-[calc(100dvh-3rem)] sm:p-6">
             <button
                 onClick={() => setCardSelect(null)}
                 className="absolute top-4 left-4 text-gray-600 hover:text-black text-xl"

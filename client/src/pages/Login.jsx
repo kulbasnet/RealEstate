@@ -6,10 +6,10 @@ import { toast } from "react-hot-toast"
 import { signInWithPopup } from "firebase/auth"
 import { auth, googleAuthprovider } from "../firebase"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import { Checkbox } from "@/Components/ui/checkbox"
 import login from './login1.jpg';
 import Google from './Google.png';
 
@@ -26,7 +26,7 @@ export default function Login() {
     const { email, password } = data
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/login", { email, password })
+      const { data } = await Axios.post("/login", { email, password })
       const { token, isAgent } = data
 
       if (data.error) {
@@ -77,7 +77,7 @@ export default function Login() {
       console.log("Google Token:", token)
 
       const { data } = await Axios.post(
-        "http://localhost:8000/protected",
+        "/protected",
         {},
         {
           headers: {

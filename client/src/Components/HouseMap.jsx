@@ -3,9 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import  home from './home.png';
-import Card from './Card';
-
-function HouseMap({houses, selectedHouse, onHouseClick}) {
+function HouseMap({houses, selectedHouse, onHouseClick, className}) {
 
     // const customMark =(price)=> L.divIcon({
     //     className:"price-maker",
@@ -26,10 +24,11 @@ function HouseMap({houses, selectedHouse, onHouseClick}) {
 
   return (
     
-        <div className='h-[100vh] w-full'>
+        <div className={className || 'h-[100vh] w-full'}>
       <MapContainer 
         center={[27.7103,85.3222]}  
         zoom={13}
+        style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

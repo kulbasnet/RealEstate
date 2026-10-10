@@ -10,7 +10,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/Components/ui/dropdown-menu";
 
 function UserFont() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +58,7 @@ function UserFont() {
                 <DropdownMenu >
                     <DropdownMenuTrigger asChild>
                         <button className="focus:outline-none">
-                            <FontAwesomeIcon icon={faUser} color="white" className="text-2xl" />
+                            <FontAwesomeIcon icon={faUser} color="white" className="text-2xl max-sm:text-xl" />
                         </button>
                     </DropdownMenuTrigger>
                     
@@ -103,7 +103,7 @@ function UserFont() {
                 </DropdownMenu>
             ) : (
                 <Link to="/login">
-                    <button className="text-white bg-blue-600 px-4 py-2 rounded-md">Login / Join Now</button>
+                    <button className="whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-white max-sm:px-1 max-sm:py-1 max-sm:text-[10px]">Login / Join Now</button>
                 </Link>
             )}
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-// import UserFont from '../components/UserFont';
-import AgentFont from '../components/AgentFont';
+// import UserFont from '../Components/UserFont';
+import AgentFont from '../Components/AgentFont';
 import bur from "../pages/bur.png";
 import { Pyramid } from 'lucide-react';
 

@@ -14,6 +14,12 @@ const transporter = nodemailer.createTransport({
 
 
     const sendVerificationEmail = async(email, verificationToken)=>{
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+            const error = new Error("Verification email is not configured. Set EMAIL_USER and EMAIL_PASSWORD in server/.env.");
+            error.code = "EMAIL_NOT_CONFIGURED";
+            throw error;
+        }
+
         try{
             const mailOptions ={
                 from: `"Basnet Realties" <${process.env.EMAIL_USER}>` ,

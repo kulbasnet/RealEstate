@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { CalendarIcon, FilterIcon } from 'lucide-react';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import MessageUpdate from '@/components/MessageUpdate';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import MessageUpdate from '@/Components/MessageUpdate';
 
 
 
@@ -26,7 +26,7 @@ function Messages() {
         }
 
         try {
-            const response = await axios.get("http://localhost:8000/house/getMessage", {
+            const response = await axios.get("/house/getMessage", {
                 headers: {
                     Authorization: `Bearer ${authentication}`
                 }
@@ -62,7 +62,7 @@ const getLatestMessage = async()=>{
 
     try{
 
-        const response = await axios.get("http://localhost:8000/house/getLatestMessage", {
+        const response = await axios.get("/house/getLatestMessage", {
             headers:{
                 Authorization : `Bearer ${authentication}`
             }

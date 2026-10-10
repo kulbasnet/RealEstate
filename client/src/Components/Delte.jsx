@@ -18,7 +18,7 @@ function Delte({houseId}) {
             return;
         }
         try{
-            const response = await axios.delete(`http://localhost:8000/house/delete/${houseId}`,{
+            const response = await axios.delete(`/house/delete/${houseId}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }

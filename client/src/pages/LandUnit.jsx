@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Footer from "@/Components/Footer";
+import { Input } from "@/Components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/ui/table";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
 import { ArrowDownUp, Info } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
 import land from "./landSurvery.jpg";
 
 function LandUnit() {

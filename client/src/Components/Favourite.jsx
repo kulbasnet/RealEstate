@@ -19,7 +19,7 @@ function Favourite({ houseId }) {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/house/addToFavourite", 
+                "/house/addToFavourite", 
                 { houseId },  
                 {   
                     headers: {
