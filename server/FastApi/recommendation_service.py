@@ -12,9 +12,16 @@ from fastapi.responses import JSONResponse
 import base64
 from contextlib import asynccontextmanager
 import asyncio
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-client = MongoClient("mongodb+srv://np03cs4a220500:kulbhushanbasnet@cluster0.znlvott.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0")
-db = client["test"]
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+mongo_uri = os.environ.get("MONGO_URI")
+if not mongo_uri:
+    raise RuntimeError("MONGO_URI must be configured in the environment")
+client = MongoClient(mongo_uri)
+db = client[os.environ.get("MONGO_DB_NAME", "test")]
 collection = db["houses"]
 
 def convert_objectids(data):

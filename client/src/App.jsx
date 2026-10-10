@@ -7,8 +7,8 @@ import Buy from './pages/Buy';
 import Sell from './pages/Sell';
 import Login from './pages/Login';
 import { Toaster } from "react-hot-toast";
-import WithNavBar from './components/WithNavBar';
-import WithoutNav from './components/WithoutNav';
+import WithNavBar from './Components/WithNavBar';
+import WithoutNav from './Components/WithoutNav';
 import Dashboard from './Agent/Dashboard';
 import Agentnav from './Agent/Agentnav';
 import Message from './Agent/Message';
@@ -19,7 +19,7 @@ import './index.css';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AboutUs from './pages/AboutUs';
 import AgentProfile from './Agent/AgentProfile';
-import ProtectedRoute from '../src/components/ProtectedRoutes';  // ✅ Import ProtectedRoute
+import ProtectedRoute from './Components/ProtectedRoutes';
 import UserProfile from './pages/UserProfile';
 import GetFavourite from './pages/GetFavourite';
 import AdminLogin from './Admin/AdminLogin';
@@ -38,7 +38,7 @@ import LandUnit from './pages/LandUnit';
 import Emi from './pages/Emi';
 import {RecommendationProvider } from '../src/Context/RecommendationContext';
 
-axios.defaults.baseURL = 'http://localhost:6001';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 axios.defaults.withCredentials = false;
 
 function App() {

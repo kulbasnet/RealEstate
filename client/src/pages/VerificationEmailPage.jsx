@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/Components/ui/input-otp";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import login from "./login1.jpg";
 
 function VerificationEmailPage() {
@@ -17,7 +17,7 @@ function VerificationEmailPage() {
     }
 
     try {
-      const  data = await Axios.post("http://localhost:8000/verifyEmail", { code:value });
+      const  data = await Axios.post("/verifyEmail", { code:value });
       if (data.error) {
         toast.error("Sorry, empty or invalid code.");
         console.log(`Error: ${data.error}`);

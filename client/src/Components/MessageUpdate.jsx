@@ -36,7 +36,7 @@ const authentication = localStorage.getItem("authToken");
         const {name, message, phoneNumber, status} = reconsider;
 
         try{
-            const response = await axios.put(`http://localhost:8000/house/updateMessage/${messageId}`, {
+            const response = await axios.put(`/house/updateMessage/${messageId}`, {
 
                 ...reconsider,
                 date: selectDate.toISOString() 

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/Components/ui/card";
 
 import login from "./login1.jpg";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -30,7 +30,7 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const { data } = await Axios.post(`http://localhost:8000/reset-password/${token}`, { password });
+      const { data } = await Axios.post(`/reset-password/${token}`, { password });
       if (data.error) {
         toast.error(data.error);
       } else {

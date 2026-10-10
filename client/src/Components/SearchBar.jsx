@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Button } from "@/Components/ui/button"
 import {  useNavigate } from 'react-router-dom';
 
 function SearchBar({searchInput, setSearchInput, onSearch}) {
@@ -15,7 +15,7 @@ function SearchBar({searchInput, setSearchInput, onSearch}) {
     //     const searchHouse = async () => {
     //         // const token = localStorage.getItem("authToken");
     //         try {
-    //             const response = await axios.get("http://localhost:8000/house/searchhouse", {
+    //             const response = await axios.get("/house/searchhouse", {
     //                 params: { location: input }
     //             });
     
@@ -56,14 +56,14 @@ function SearchBar({searchInput, setSearchInput, onSearch}) {
 
 
     return (
-        <div>
+        <div className="w-full px-4 sm:px-0">
 
-<div className="relative max-w-2xl w-full mx-auto">
+<div className="relative mx-auto w-full max-w-[500px]">
       <Input
         type="text"
         placeholder="Enter an address or location"
         onChange={(e)=> setSearchInput(e.target.value)}
-        className="bg-white pl-4 pr-12 py-6  placeholder:text-base font-abyssinica  border shadow-sm  h-[60px] w-[500px]"
+        className="bg-white pl-4 pr-12 py-6 placeholder:text-base font-abyssinica border shadow-sm h-[60px] w-full"
       />
  <Button
         size="icon"

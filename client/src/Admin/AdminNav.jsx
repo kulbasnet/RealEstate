@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast';
-import { DropdownMenu ,DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { DropdownMenu ,DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/Components/ui/dropdown-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import bur from "../pages/bur.png";

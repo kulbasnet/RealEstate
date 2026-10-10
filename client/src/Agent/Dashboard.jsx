@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import AgentHouse from '../components/AgentHouse';
-import Add from '../components/Add';
+import AgentHouse from '../Components/AgentHouse';
+import Add from '../Components/Add';
 import { Plus } from 'lucide-react';
 
 function Dashboard() {

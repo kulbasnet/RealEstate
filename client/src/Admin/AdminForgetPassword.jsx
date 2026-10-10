@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 
 function AdminForgetPassword() {
 
@@ -22,7 +22,7 @@ function AdminForgetPassword() {
 
         try{
 
-            const response = await axios.post("http://localhost:8000/adminRoute/adminForget",  {email});
+            const response = await axios.post("/adminRoute/adminForget",  {email});
             if(response.error){
                 toast.error(response.error);
             }else{

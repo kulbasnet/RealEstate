@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import UpdateHouse from '@/components/UpdateHouse';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
+import UpdateHouse from '@/Components/UpdateHouse';
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from '@/Components/ui/alert-dialog';
+import { Button } from '@/Components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { AlertDialogAction } from '@radix-ui/react-alert-dialog';
 import toast from 'react-hot-toast';
-import Delte from '@/components/Delte';
-import TableSkeleton from '@/components/TableSkeleton';
+import Delte from '@/Components/Delte';
+import TableSkeleton from '@/Components/TableSkeleton';
 import { Bar, Pie, Line  } from 'react-chartjs-2';
 import { Chart as Chartjs, registerables } from 'chart.js';
 Chartjs.register(...registerables);
@@ -23,7 +23,7 @@ function AdminDashBoard() {
 
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/getUser", {
+      const response = await axios.get("/getUser", {
         headers: {
           "Authorization": `Bearer ${authentication}`
         }
@@ -40,7 +40,7 @@ function AdminDashBoard() {
   const getUserOnly = async()=>{
     try{
 
-      const response = await axios.get("http://localhost:8000/getUserOnly", {
+      const response = await axios.get("/getUserOnly", {
         headers:{
           "Authorization" : `Bearer ${authentication}`
         }
@@ -62,7 +62,7 @@ function AdminDashBoard() {
 
   //   try{
 
-  //     const response = await axios.get("http://localhost:8000/house/getHouse");
+  //     const response = await axios.get("/house/getHouse");
   //       setHouses(response.data.houses);
   //       setLoading(false);
   //       console.log(response.data.houses);
@@ -78,7 +78,7 @@ function AdminDashBoard() {
 
   const handleDelete = async(agentId)=>{
     try{
-      const response = await axios.delete(`http://localhost:8000/userDelete/${agentId}`,{
+      const response = await axios.delete(`/userDelete/${agentId}`,{
         headers:{
           "Authorization" :`Bearer ${authentication}`
         }

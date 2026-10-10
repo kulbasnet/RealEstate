@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/Components/ui/dialog";
 import {Label} from "./ui/label";
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -54,7 +54,7 @@ function UpdateHouse({houseId}) {
 
     try{
 
-      const response = await axios.put(`http://localhost:8000/house/updateHouse/${houseId}`, formData, {
+      const response = await axios.put(`/house/updateHouse/${houseId}`, formData, {
         headers:{
           Authorization: `Bearer ${authentication}`,
           "Content-Type" : 'multipart/form-data'

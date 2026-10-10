@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TableSkeleton from '@/components/TableSkeleton';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import TableSkeleton from '@/Components/TableSkeleton';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import {
   AlertDialogAction,
   AlertDialog,
@@ -12,10 +12,10 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogCancel
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '@/Components/ui/alert-dialog';
+import { Button } from '@/Components/ui/button';
 import { Trash2 } from 'lucide-react';
-import Delte from '@/components/Delte';
+import Delte from '@/Components/Delte';
 import { Pie, Line } from 'react-chartjs-2';
 import { Chart as Chartjs, registerables } from 'chart.js';
 
@@ -31,7 +31,7 @@ function AdminAnalystics() {
 
   const getHouse = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/house/getHouse");
+      const response = await axios.get("/house/getHouse");
       setHouses(response.data.houses);
       setLoading(false);
     } catch (error) {

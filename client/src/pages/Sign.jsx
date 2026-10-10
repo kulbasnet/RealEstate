@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-hot-toast";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-// import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
+// import { Checkbox } from "@/Components/ui/checkbox";
 import login from "./login1.jpg";
 // import Google from "./Google.png";
 
@@ -49,7 +49,7 @@ export default function Sign() {
   }
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/sign", formData);
+      const { data } = await Axios.post("/sign", formData);
 
       if (data.error) {
         toast.error(data.error);
@@ -76,8 +76,8 @@ export default function Sign() {
         navigate("/verifyEmail");
       }
     } catch (error) {
-      console.error("Server response:", error.response?.data);      
-      toast.error(err.response?.data?.message || "An error occurred.");
+      console.error("Server response:", error.response?.data);
+      toast.error(error.response?.data?.message || "An error occurred.");
       
     //   if (err.response && err.response.data && err.response.data.error) {
     //     toast.error(err.response.data.error);

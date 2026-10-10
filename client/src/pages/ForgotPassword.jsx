@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import toast from "react-hot-toast";
@@ -20,7 +20,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/forgetPassword", { email });
+      const { data } = await Axios.post("/forgetPassword", { email });
       if (data.error) {
         toast.error(data.error);
       } else {

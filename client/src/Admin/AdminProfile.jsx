@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState} from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
 import {
    Dialog,
    DialogContent,
@@ -8,7 +8,7 @@ import {
      DialogFooter,
       DialogHeader,
       DialogTitle,
-       DialogTrigger } from '@/components/ui/dialog';
+       DialogTrigger } from '@/Components/ui/dialog';
 import {
    AlertDialog, 
   AlertDialogAction, 
@@ -19,14 +19,14 @@ import {
    AlertDialogTitle,
     AlertDialogTrigger,
   AlertDialogHeader
- } from '@/components/ui/alert-dialog';
+ } from '@/Components/ui/alert-dialog';
 
  import { useNavigate } from 'react-router-dom';
- import { Input } from '@/components/ui/input';
- import { Button } from '@/components/ui/button';
+ import { Input } from '@/Components/ui/input';
+ import { Button } from '@/Components/ui/button';
  import { Pencil, Trash2 } from 'lucide-react';
- import { Avatar, AvatarImage } from "@/components/ui/avatar"
- import { Label } from '@/components/ui/label';
+ import { Avatar, AvatarImage } from "@/Components/ui/avatar"
+ import { Label } from '@/Components/ui/label';
 import toast from 'react-hot-toast';
 
 
@@ -47,7 +47,7 @@ function AdminProfile() {
 
     const adminInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/adminRoute/adminInfo", {
+        const response = await axios.get("/adminRoute/adminInfo", {
           headers: { "Authorization": `Bearer ${authentication}` }
         });
         setadmin(response.data.data); // Make sure your backend returns { data: ... }
@@ -81,7 +81,7 @@ function AdminProfile() {
 
 
       try{
-        const response = await axios.put(`http://localhost:8000/adminRoute/adminUpdate/${admin._id}`, formData, {
+        const response = await axios.put(`/adminRoute/adminUpdate/${admin._id}`, formData, {
           headers:{
             "Authorization" : `Bearer ${authentication}`,
             "Content-Type" : "multipart/form-data",
@@ -123,7 +123,7 @@ function AdminProfile() {
     const adminDelete = async ()=>{
       try{
 
-        const response = await axios.delete(`http://localhost:8000/adminRoute/adminDelete/${admin._id}`,{
+        const response = await axios.delete(`/adminRoute/adminDelete/${admin._id}`,{
           headers:{
             "Authorization": `Bearer ${authentication}`
           }

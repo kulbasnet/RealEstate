@@ -3,10 +3,10 @@ import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import { toast } from "react-hot-toast"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import { Checkbox } from "@/Components/ui/checkbox"
 // import login from './login1.jpg';
 // import Google from './Google.png';
 
@@ -23,7 +23,7 @@ export default function Login() {
     const { email, password } = data
 
     try {
-      const { data } = await Axios.post("http://localhost:8000/adminRoute/adminLogin", { email, password })
+      const { data } = await Axios.post("/adminRoute/adminLogin", { email, password })
       const { token, isAdmin  } = data
 
       if (data.error) {

@@ -10,18 +10,18 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 function NavBar() { 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#081740] shadow-md z-50 flex items-center justify-between px-8 py-4 h-[100px]">
+    <nav className="fixed top-0 left-0 z-50 flex h-[100px] w-full items-center justify-between bg-[#081740] px-8 py-4 shadow-md max-lg:px-5 max-sm:h-[76px] max-sm:px-2 max-sm:py-2">
       <Link to={'/hero'}>
-        <img className="h-15 w-auto" src={bur} alt="logo" />
+        <img className="h-15 w-auto max-sm:w-[56px]" src={bur} alt="logo" />
       </Link> 
 
-      <ul className="flex gap-[100px] text-white text-lg font-semibold ml-[510px]">
+      <ul className="ml-[510px] flex gap-[100px] text-lg font-semibold text-white max-lg:ml-0 max-lg:gap-8 max-lg:text-base max-sm:gap-1 max-sm:text-xs">
         <li><Link to={'/'} className="hover:underline">BUY</Link></li>
         <li><Link to={'/sell'} className="hover:underline">SELL</Link></li>
         <li><Link to={'/agent'} className="hover:underline">AGENT</Link></li>
         <DropdownMenu >
           <DropdownMenuTrigger asChild>
-          <li className='flex'> TOOLS <ChevronDown className='ml-3 mt-1'/> </li>
+          <li className='flex'> TOOLS <ChevronDown className='ml-3 mt-1 max-sm:ml-1 max-sm:h-3 max-sm:w-3'/> </li>
           </DropdownMenuTrigger>
           <DropdownMenuContent
           sideOffset = {10}

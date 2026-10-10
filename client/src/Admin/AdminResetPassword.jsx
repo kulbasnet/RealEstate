@@ -5,10 +5,10 @@ import {toast} from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Card, CardTitle, CardContent, CardDescription, CardFooter, CardHeader
- } from '@/components/ui/card';
+ } from '@/Components/ui/card';
 
- import { Button } from '@/components/ui/button';
- import { Input } from '@/components/ui/input';
+ import { Button } from '@/Components/ui/button';
+ import { Input } from '@/Components/ui/input';
 
 function AdminResetPassword() {
   const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ function AdminResetPassword() {
     }
 
     try{
-      const response = await axios.post(`http://localhost:8000/adminRoute/adminResetPassword/${token}`, {password});
+      const response = await axios.post(`/adminRoute/adminResetPassword/${token}`, {password});
       if(response.error){
         console.log(response.error);
       }else{

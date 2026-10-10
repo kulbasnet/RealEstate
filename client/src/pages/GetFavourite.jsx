@@ -1,11 +1,11 @@
-import Favourite from '@/components/Favourite';
-import { Card, CardDescription, CardTitle } from '@/components/ui/card';
+import Favourite from '@/Components/Favourite';
+import { Card, CardDescription, CardTitle } from '@/Components/ui/card';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import HouseMap from '@/components/HouseMap';
+import HouseMap from '@/Components/HouseMap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import GetinTouch from '../components/GetinTouch';
+import GetinTouch from '../Components/GetinTouch';
 
 
 
@@ -24,7 +24,7 @@ function GetFavourite({position}) {
       }
 
       try {
-        const response = await axios.get("http://localhost:8000/house/favouriteHouse", {
+        const response = await axios.get("/house/favouriteHouse", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

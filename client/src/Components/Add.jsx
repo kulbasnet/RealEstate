@@ -8,11 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
+} from "@/Components/ui/dialog"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select"
+import { Button } from "@/Components/ui/button"
 
 function Add({ onclose }) {
   const [houseData, setHouseData] = useState({
@@ -73,7 +73,7 @@ console.log("Retrieved authToken:", authToken); //
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/house/createHouse", formData, {
+      const response = await axios.post("/house/createHouse", formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
           "Content-Type": "multipart/form-data",

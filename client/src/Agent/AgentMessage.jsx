@@ -1,11 +1,11 @@
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/Components/ui/badge';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CalendarIcon, FilterIcon } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
+import { Button } from '@/Components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 
 
 function AgentMessage() {
@@ -25,7 +25,7 @@ function AgentMessage() {
             }
 
             try {
-                const response = await axios.get(`http://localhost:8000/house/getMessage`, {
+                const response = await axios.get(`/house/getMessage`, {
                     headers: {
                         Authorization: `Bearer ${authentication}`
                     }
@@ -59,7 +59,7 @@ function AgentMessage() {
 
     try{
 
-        const response = await axios.get("http://localhost:8000/house/getLatestMessage", {
+        const response = await axios.get("/house/getLatestMessage", {
             headers:{
                 Authorization : `Bearer ${authentication}`
             }
@@ -84,7 +84,7 @@ function AgentMessage() {
     const updateStatus = async (messageId, newStatus) => {
       try {
         const response = await axios.put(
-          `http://localhost:8000/house/updateStatus/${messageId}`,
+          `/house/updateStatus/${messageId}`,
           { status: newStatus }, 
           {
             headers: {

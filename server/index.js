@@ -10,8 +10,12 @@ const adminRoute = require("../server/routes/AdminRoute")
 const port = process.env.PORT || 8000;
 // const Admin = require('../server/models/Admin');
 
-// Middleware 
-app.use(cors());
+// Middleware
+const allowedOrigins = (process.env.CLIENT_URL || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+app.use(cors({ origin: allowedOrigins.length ? allowedOrigins : true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/house', houseRoutes);
@@ -22,7 +26,9 @@ app.use('/A', recommendationRoutes);
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            dbName: process.env.MONGO_DB_NAME || "test",
+        });
         console.log('MongoDB connected');
     } catch (err) {
         console.error('MongoDB connection error:', err.message);

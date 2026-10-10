@@ -1,6 +1,6 @@
 import React from 'react'
 import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/Components/ui/input';
 
 function SearchAgent({ onSearch, searchTerm, setSearchTerm }) {
   const handleClick = async (e) => {
