@@ -129,24 +129,24 @@ function Hero({handleSearch, onSearch}) {
   </div>
 </div>
 
-      <div>
-        
-      <div className='mx-4 mt-[40px] sm:ml-[160px] sm:mr-4' data-reveal>
-          <h1 className=' font-semibold text-2xl'>Recommended Homes For You</h1>
-          <p className='text-gray-600 '>Based on homes you recently viewed </p>
-          </div>
-      
-            {selectedHouseId ? (
-          <div >
+      {/* Same container as "Latest Homes" (max-w-7xl) so the heading and cards line up with it */}
+      <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className='mt-[40px]' data-reveal>
+          <h1 className='font-semibold text-2xl sm:text-3xl'>Recommended Homes For You</h1>
+          <p className='mt-1 text-sm text-gray-600 sm:text-base'>Based on homes you recently viewed </p>
+        </div>
+
+        {selectedHouseId ? (
+          // Scrolls sideways on narrow screens instead of pushing the page wider
+          <div className="mt-4 overflow-x-auto pt-1 pb-4">
             <Recommend houseId={selectedHouseId} />
           </div>
         ) : (
-          <div className="h-48 w-full flex items-center justify-center text-gray-500 mt-4">
+          <div className="h-48 w-full flex items-center justify-center text-center px-4 text-gray-500 mt-4">
             Click on a house to view recommendations.
           </div>
         )}
-             
-      </div>
+      </section>
 
       <div data-reveal>
         <LatestHouse/>
