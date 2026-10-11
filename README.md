@@ -127,6 +127,29 @@ npm run dev
 
 Open the Vite URL printed in the terminal (normally `http://localhost:5173`).
 
+### Password reset flow
+
+1. Open **Forgot Password**, enter the account email, and submit the form.
+2. The Express API creates a single-use reset token that expires after one hour and emails a link to the frontend.
+3. Open the link to reach `/reset-password/:token`, enter and confirm the new password, then submit.
+4. The frontend sends the new password and token to `POST /reset-password/:token`. On success, the password is updated and the user can sign in with it.
+
+For local development on the same computer, set `CLIENT_URL=http://localhost:5173` in `server/.env`. Restart the Express server after changing it, then request a new reset email. The link should look like `http://localhost:5173/reset-password/<token>`; the token is part of the link, not the password itself.
+
+To open the local reset link on a phone connected to the same Wi-Fi, use the computer's LAN IP instead of `localhost`:
+
+1. Start Vite so it accepts connections from other devices:
+
+   ```bash
+   cd client
+   npm run dev -- --host 0.0.0.0
+   ```
+
+2. Set `CLIENT_URL=http://<computer-lan-ip>:5173` in `server/.env`, and set `VITE_API_URL=http://<computer-lan-ip>:8000` in `client/.env.local`. Replace `<computer-lan-ip>` with the computer's actual local IP address.
+3. Restart both the Express server and Vite, request a new reset email, and open its link on the phone. Keep the phone and computer on the same Wi-Fi and allow ports `5173` and `8000` through the computer's firewall if needed.
+
+`CLIENT_URL` is also used by Express for CORS, so the frontend origin in the reset link must match the client origin allowed by the API. A link using `localhost` only works on the computer running the services; on a phone, `localhost` refers to the phone itself.
+
 ## API overview
 
 All routes below are served by the Express API unless marked **Python**. Request and response fields are defined by the route controllers and models.
