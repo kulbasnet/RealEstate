@@ -31,6 +31,7 @@ const transporter = nodemailer.createTransport({
             console.log("Verifcation email sesnt");
         }catch(error){
             console.log("verification error", error);
+            throw error;
         }
 
 
