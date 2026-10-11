@@ -44,7 +44,8 @@ const transporter = nodemailer.createTransport({
               from: `Basnet Realties <${process.env.EMAIL_USER}>`,
               to: email,
               subject: 'Reset Your Password',
-              html: `Click <a href="${resetUrl}">here</a> to reset your password`
+              text: `Reset your password using this link: ${resetUrl}`,
+              html: `<p>Click the link below to reset your password:</p><p><a href="${resetUrl}">Reset your password</a></p><p>If the button does not work, copy and paste this URL into your browser:</p><p>${resetUrl}</p>`
             };
         
             await transporter.sendMail(mailOptions);

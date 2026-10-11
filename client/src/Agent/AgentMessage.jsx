@@ -1,6 +1,6 @@
 import { Badge } from '@/Components/ui/badge';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CalendarIcon, FilterIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
@@ -11,41 +11,44 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 function AgentMessage() {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [update, setUpdate] = useState({
         status : ""
     })
     const authentication = localStorage.getItem("authToken");
 
-    useEffect(() => {
-        const fetchMessages = async () => {
-            if (!authentication) {
-                toast.error("Please login to view messages");
-                setLoading(false);
-                return;
-            }
+    // Defined with useCallback so both the first load and the "Default" sort option can call it
+    const fetchMessages = useCallback(async () => {
+        if (!authentication) {
+            toast.error("Please login to view messages");
+            setLoading(false);
+            return;
+        }
 
-            try {
-                const response = await axios.get(`/house/getMessage`, {
-                    headers: {
-                        Authorization: `Bearer ${authentication}`
-                    }
-                });
-
-                if (response.data.success) {
-                    setMessages(response.data.data || []);
-                } else {
-                    setError(response.data.message || 'Failed to load messages');
+        try {
+            const response = await axios.get(`/house/getMessage`, {
+                headers: {
+                    Authorization: `Bearer ${authentication}`
                 }
-            } catch (error) {
-                setError(error.response?.data?.message || 'Error fetching messages');
-                console.error("Fetch error:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+            });
 
-        fetchMessages();
+            if (response.data.success) {
+                setError(null);
+                setMessages(response.data.data || []);
+            } else {
+                setError(response.data.message || 'Failed to load messages');
+            }
+        } catch (error) {
+            setError(error.response?.data?.message || 'Error fetching messages');
+            console.error("Fetch error:", error);
+        } finally {
+            setLoading(false);
+        }
     }, [authentication]);
+
+    useEffect(() => {
+        fetchMessages();
+    }, [fetchMessages]);
 
 
 
@@ -121,22 +124,18 @@ function AgentMessage() {
 
     }
 
-
-    function handleStatus(e){
-        setMessages(prev=>({...prev, status: e.target.value}))
-    }
-
    
 
 
     if (loading) {
-        return <div className="p-4">Loading messages...</div>;
+        return <div className="p-4 mt-[100px] md:mt-[130px]">Loading messages...</div>;
     }
 
     
 
     return (<>
-    <div className='flex items-center gap-4 font-abyssinica justify-end mr-[260px] mt-[130px] outline-none'>
+    {/* Sort row: the 260px right margin only applies on wide screens */}
+    <div className='flex items-center gap-4 font-abyssinica justify-end mr-4 sm:mr-8 lg:mr-[260px] mt-[100px] md:mt-[130px] outline-none'>
     <Select onValueChange={(value)=>{
                 if (value === "latest"){
                     getLatestMessage()
@@ -161,9 +160,10 @@ function AgentMessage() {
 
     </div>
            <div className="p-4 max-w-5xl mx-auto mt-[10px]">
-  <h1 className="text-3xl font-bold text-[#dba829] ">Received Messages</h1>
-  <p className="text-muted-foreground mb-6">View and manage your property viewing appointments</p>
+  <h1 className="text-2xl sm:text-3xl font-bold text-[#dba829] ">Received Messages</h1>
+  <p className="text-muted-foreground mb-6 text-sm sm:text-base">View and manage your property viewing appointments</p>
 
+  {error && <p className="mb-4 text-red-500">{error}</p>}
 
   {messages.length === 0 ? (
     <p className="text-gray-500">No messages found</p>
@@ -172,26 +172,27 @@ function AgentMessage() {
       {messages.map((message) => (
         <Card key={message._id} className="overflow-hidden ">
           <div className="flex">
-            <div className="w-[120px]  h-[150px] mt-7 ml-6 ">
+            {/* Photo: smaller on phones so the details get the room */}
+            <div className="w-[72px] h-[90px] mt-4 ml-4 shrink-0 sm:w-[120px] sm:h-[150px] sm:mt-7 sm:ml-6">
               <img
                 src={message.from?.img || "/placeholder.svg"}
                 alt={message.from?.name || "Unknown"}
-                className="w-full h-full "
+                className="w-full h-full object-cover"
               />
             </div>
 
-            <div className="flex-1">
-              <CardHeader className="pb-2">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle>{message.from?.name || "Unknown Sender"}</CardTitle>
-                    <CardDescription className="mt-1">{message.from?.email || "No email provided"}</CardDescription>
+            <div className="flex-1 min-w-0">
+              <CardHeader className="pb-2 p-4 sm:p-6 sm:pb-2">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <CardTitle className="break-words">{message.from?.name || "Unknown Sender"}</CardTitle>
+                    <CardDescription className="mt-1 break-words">{message.from?.email || "No email provided"}</CardDescription>
                   </div>
-                  {getStatus(message.status)}
+                  <div className="shrink-0">{getStatus(message.status)}</div>
                 </div>
               </CardHeader>
 
-              <CardContent className="pb-2">
+              <CardContent className="pb-2 px-4 sm:px-6">
                   <div className="flex items-center gap-2 justify-end">
                     <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                     <div>
@@ -207,20 +208,20 @@ function AgentMessage() {
                 {message.message && (
                   <div >
                     <p className='font-bold'>Messages:</p>
-                    <p className="text-sm text-muted-foreground"> {message.message}</p>
+                    <p className="text-sm text-muted-foreground break-words"> {message.message}</p>
                   </div>
                 )}
               </CardContent>
 
-              <CardFooter className="flex justify-end gap-2">
+              <CardFooter className="flex flex-wrap justify-end gap-2 px-4 pb-4 sm:px-6 sm:pb-6">
                 {message.status === "Pending" && (
                   <>
-                    <button variant="outline" size="sm" onChange={handleStatus}  onClick={() => updateStatus(message._id ,"Cancelled" )}>
+                    <Button variant="outline" size="sm" onClick={() => updateStatus(message._id ,"Cancelled" )}>
                       ❌ Cancel
-                    </button>
-                    <button variant="success" size="sm" onChange={handleStatus}  onClick={() => updateStatus(message._id ,"Confirmed")}>
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => updateStatus(message._id ,"Confirmed")}>
                       ✔️ Confirm
-                    </button>
+                    </Button>
                   </>
                 )}
                 {/* {message.status === "Cancelled" && (
