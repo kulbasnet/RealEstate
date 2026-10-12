@@ -32,18 +32,25 @@ function UpdateHouse({houseId}) {
   const updateHouse=async(e)=>{
     e.preventDefault();
     const formData = new FormData();
-    formData.append("location", house.location);
-    formData.append("size", house.size);
-    formData.append("price", house.price);
-    formData.append("bedroom", house.Bedroom);
-    formData.append("bathrooms", house.Bathrooms);
-    formData.append("status", house.status);
-    formData.append("propertyNumber", house.propertyNumber);
-    formData.append("Description", house.Description);
-    formData.append("img", house.img);
-    formData.append("PropertyType", house.propertyType);
-    formData.append("longitude", house.longitude);
-    formData.append("latitude", house.latitude);
+    const fields = {
+      location: house.location,
+      size: house.size,
+      price: house.price,
+      bedroom: house.Bedroom,
+      bathrooms: house.Bathrooms,
+      status: house.status,
+      propertyNumber: house.propertyNumber,
+      Description: house.Description,
+      PropertyType: house.propertyType,
+      longitude: house.longitude,
+      latitude: house.latitude,
+    };
+    Object.entries(fields).forEach(([name, value]) => {
+      if (value !== "") formData.append(name, value);
+    });
+    if (house.img) {
+      formData.append("img", house.img);
+    }
 
     if(!authentication){
       console.log("No token found");

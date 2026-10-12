@@ -1,0 +1,63 @@
+services:
+  # ---------------------------------------------------------------- Express API
+  - type: web
+    name: realestate-api
+    runtime: node
+    rootDir: server
+    plan: free
+    region: singapore            # closest Render region to South Asia; keep both services in the same region
+    buildCommand: npm ci         # requires server/package-lock.json to be committed
+    startCommand: node index.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false              # paste in the Render dashboard (the ROTATED Atlas string)
+      - key: MONGO_DB_NAME
+        value: test
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        sync: false              # exact frontend origin, no trailing slash, e.g. https://your-app.vercel.app
+      - key: RECOMMENDATION_API_URL
+        sync: false              # public URL of the recommender, e.g. https://realestate-recommender.onrender.com
+      - key: RECOMMENDER_API_KEY
+        fromService:
+          type: web
+          name: realestate-recommender
+          envVarKey: RECOMMENDER_API_KEY
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: OPENCAGE_API_KEY
+        sync: false
+      - key: ALLOW_ADMIN_SIGNUP
+        value: "false"           # keep false: admin accounts are created by an existing admin
+
+  # ---------------------------------------------------------------- FastAPI recommender
+  - type: web
+    name: realestate-recommender
+    runtime: python
+    rootDir: server/FastApi
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn recommendation_service:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8            # must be a full version Render supports; adjust if the build rejects it
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: test
+      - key: RECOMMENDER_API_KEY
+        generateValue: true
+      - key: REFRESH_SECONDS
+        value: "900"
