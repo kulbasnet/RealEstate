@@ -1,29 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate');
-const { userLogin, userSignUp, getUser, verifyEmail, userLogout,forgetPassword, resetPassword, updateUser, searchUser, userAlphabetSort, userDelete, userInfo, getUserOnly } = require('../controllers/userControllers');
-const multer = require('multer');
-// const {verifyToken} =require('../middleware/firebaseToken');
-const upload = multer({ storage: multer.memoryStorage()});
-// const {verifyToken} = require('../index.js');
+const rateLimit = require('express-rate-limit');
 
-router.post('/login', userLogin);
-router.post('/sign', upload.single('img'), userSignUp); 
-router.get('/getUser',authenticate ,getUser);
-// router.post('/protect',verifyToken,userGooglesign);
-router.post('/verifyEmail',verifyEmail);
-router.post('/logout',userLogout);
-router.post('/forgetPassword',forgetPassword);
-router.post('/reset-password/:token',resetPassword);
-// router.put('updateUser/:id', updateUser);
-router.put("/updateUser/:id", upload.single('img'),authenticate, updateUser);
+const authenticate = require('../middleware/authenticate');
+const requireSelfOrAdmin = require('../middleware/requireSelfOrAdmin');
+const upload = require('../middleware/upload');
+const {
+    userLogin, userSignUp, getUser, verifyEmail, userLogout, forgetPassword, resetPassword,
+    updateUser, searchUser, userAlphabetSort, userDelete, userInfo, getUserOnly,
+} = require('../controllers/userControllers');
+
+// Brute-force / abuse protection for credential and email endpoints (needs app.set('trust proxy', 1), already in index.js)
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 30,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many attempts, please try again later.' },
+});
+
+// ---- public ----
+router.post('/login', authLimiter, userLogin);
+router.post('/sign', authLimiter, upload.single('img'), userSignUp);
+router.post('/verifyEmail', authLimiter, verifyEmail);
+router.post('/logout', userLogout);
+router.post('/forgetPassword', authLimiter, forgetPassword);
+router.post('/reset-password/:token', authLimiter, resetPassword);
 router.get('/searchAgent', searchUser);
 router.get('/userAlphabet', userAlphabetSort);
-router.delete('/userDelete/:id',authenticate, userDelete);
-router.get('/userInfo',  authenticate, userInfo);
-router.get("/getUserOnly", authenticate, getUserOnly);
 
+// ---- logged in ----
+router.get('/getUser', authenticate, getUser);
+router.get('/userInfo', authenticate, userInfo);
+router.get('/getUserOnly', authenticate, getUserOnly);
 
+// ---- logged in AND (the owner of :id OR an admin) ----
+// authenticate and the ownership check run BEFORE multer, so strangers can't upload files.
+router.put('/updateUser/:id', authenticate, requireSelfOrAdmin, upload.single('img'), updateUser);
+router.delete('/userDelete/:id', authenticate, requireSelfOrAdmin, userDelete);
 
-
-module.exports = router;     
+module.exports = router;

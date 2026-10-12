@@ -31,12 +31,14 @@ const Recommend = ({ houseId }) => {
 
 
   useEffect(() => {
+    const authentication = localStorage.getItem('authToken');
     const getRecommendation = async () => {
       try {
         const response = await axios.get(
           `/A/getRecommend/${houseId}`,{
             headers:{
-              "Content-Type" : "application/json"
+              "Content-Type" : "application/json",
+              "Authorization" : `Bearer ${authentication}`
             }
           }
         );

@@ -1,2 +1,12 @@
 server/serviceAccountKey.json
 server/serviceAccountKey.json
+
+# secrets & generated files
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*firebase-adminsdk*.json
+*serviceAccount*.json

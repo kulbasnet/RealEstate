@@ -489,23 +489,28 @@ const houseDelete  =  async(req,res)=>{
     }
 
     try{
-        const house = await houseModel.findByIdAndDelete(houseId)
+        const house = await houseModel.findById(houseId);
         if(!house){
-         return   res.status(404).json({success:false, error:"Sorry no such house to delete"})
-
+            return res.status(404).json({success:false, error:"Sorry no such house to delete"})
         }
-        const user =await userModel.findById(req.user.id);
+
+        const user = await userModel.findById(req.user.id);
         if(!user){
-          return  res.status(404).json({success:false,error:"No such user"})
+            return res.status(404).json({success:false,error:"No such user"})
         }
 
-        if(!user.createdHouse.includes(houseId)){
-          return  res.status(403).json({success:false,error:"Sorry since you didnot created house You cannot delete it"});
+        if(!user.createdHouse.some(id => id.toString() === houseId)){
+            return res.status(403).json({success:false,error:"Sorry since you didnot created house You cannot delete it"});
         }
-        user.createdHouse =  user.createdHouse.filter(id=> id.toString() !== houseId);
+
+        await houseModel.findByIdAndDelete(houseId);
+        user.createdHouse = user.createdHouse.filter(id => id.toString() !== houseId);
         await user.save();
+
+        return res.status(200).json({success:true, message:"House deleted successfully"});
     }catch(error){
-        return res.status(404).json({success:false, error:"Sorry ssome error occured"})
+        console.error("House deletion error:", error);
+        return res.status(500).json({success:false, error:"Failed to delete house"});
     }
 }
 
@@ -774,36 +779,35 @@ const updateStatus = async (req, res) => {
 
 
 
-const getRecommendation= async(req,res)=>{
-    const {houseId} = req.params;
-    // console.log("🔁 Fetching recommendations from Python for house:", houseId);
+const getRecommendation = async (req, res) => {
+    const { houseId } = req.params;
 
-
-    
     if (!mongoose.Types.ObjectId.isValid(houseId)) {
-    return res.status(400).json({
-      success: false,
-      message: 'Invalid House ID format'
-    });
-  }
+        return res.status(400).json({ success: false, message: 'Invalid House ID format' });
+    }
 
-    try{
-          const recommendationApiUrl = process.env.RECOMMENDATION_API_URL || 'http://localhost:5000';
-          const response = await axios.get(`${recommendationApiUrl}/r/recommend/${houseId}`);
-            return res.status(200).json({
+    try {
+        const recommendationApiUrl = process.env.RECOMMENDATION_API_URL || 'http://localhost:5000';
+        const response = await axios.get(`${recommendationApiUrl}/r/recommend/${houseId}`, {
+            headers: process.env.RECOMMENDER_API_KEY ? { 'X-API-Key': process.env.RECOMMENDER_API_KEY } : {},
+            timeout: 8000,
+        });
+        return res.status(200).json({
             success: true,
-            message: "Recommended houses based on input house",
-            recommendations: response.data.recommendations
-                        });
-
-
-    }catch(error){
-        console.error("Error fetching recommendations:", error.message);
-        res.status(404).json({error:"Sorry",error});
-
-}
-}
-
+            message: 'Recommended houses based on input house',
+            recommendations: response.data.recommendations,
+        });
+    } catch (error) {
+        // Recommender asleep (free tier), still training, or house not in the model yet:
+        // the page must keep working, so return an empty list instead of an error.
+        console.error('Error fetching recommendations:', error.message);
+        return res.status(200).json({
+            success: true,
+            message: 'Recommendations are temporarily unavailable',
+            recommendations: [],
+        });
+    }
+};
 
 
 module.exports = { getMessage, 
